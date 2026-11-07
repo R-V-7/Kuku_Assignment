@@ -79,6 +79,55 @@ class SimulatorTests(unittest.TestCase):
         self.assertIn("geyser coil replacement and terrace planter breakage", pushbacks[2]["whatsapp_rebuttal"])
         self.assertIn("₹20,000", pushbacks[2]["whatsapp_rebuttal"])
 
+    def test_hybrid_llm_pushback_simulation(self):
+        """When an LLM client provides roleplay responses, simulator parses them."""
+        import json
+        from typing import Any
+        from llm_client import ModelResponse
+
+        class FakeSimulatorLLM:
+            def generate_json(self, prompt: str, schema: Any) -> ModelResponse:
+                tactics = [
+                    {
+                        "title": "Tactic 1: Court Delay (LLM Simulated)",
+                        "landlord_message": "Do whatever you want bhai, court takes 10 years.",
+                        "legal_position": "Rent Authority resolves within 60 days under MTA.",
+                        "statutory_hook": "MTA 2021 Section 11",
+                        "whatsapp_rebuttal": "Dear Landlord, Rent Authority disposes claims in 60 days.",
+                    },
+                    {
+                        "title": "Tactic 2: Notice Period (LLM Simulated)",
+                        "landlord_message": "No 2 month notice means forfeit.",
+                        "legal_position": "Section 74 ICA bans penalty forfeiture.",
+                        "statutory_hook": "Section 74 ICA",
+                        "whatsapp_rebuttal": "Dear Landlord, Section 74 ICA bars arbitrary forfeiture.",
+                    },
+                    {
+                        "title": "Tactic 3: Broken Geyser (LLM Simulated)",
+                        "landlord_message": "Geyser was burnt by your high voltage.",
+                        "legal_position": "Routine electrical failure is owner maintenance.",
+                        "statutory_hook": "Section 11 MTA",
+                        "whatsapp_rebuttal": "Dear Landlord, electrical wear is owner cost without misuse proof.",
+                    },
+                ]
+                return ModelResponse(text=json.dumps(tactics), model="test")
+
+            def generate_text(self, prompt: str) -> ModelResponse:
+                return self.generate_json(prompt, None)
+
+        case = CaseFacts(
+            scope="residential_deposit",
+            deposit_amount_inr=30000,
+            amount_returned_inr=15000,
+            deduction_amount_inr=15000,
+            deduction_reason="broken geyser thermostat",
+        )
+        res = simulate_pushbacks(case, client=FakeSimulatorLLM())
+        self.assertEqual(len(res), 3)
+        self.assertIn("LLM Simulated", res[0]["title"])
+        self.assertIn("bhai", res[0]["landlord_message"])
+        self.assertIn("Section 74", res[1]["whatsapp_rebuttal"])
+
 
 if __name__ == "__main__":
     unittest.main()

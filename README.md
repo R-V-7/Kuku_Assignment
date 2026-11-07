@@ -1,6 +1,6 @@
 # Kuku AI Generalist Assignment — Problem 2: Deposit Dispute Assistant
 
-[![Tests](https://img.shields.io/badge/Unit%20Tests-48%20Passed-brightgreen)](deposit-assistant/SOLUTION_DOC.md)
+[![Tests](https://img.shields.io/badge/Unit%20Tests-52%20Passed-brightgreen)](deposit-assistant/SOLUTION_DOC.md)
 [![Architecture](https://img.shields.io/badge/Architecture-5--Layer%20Micro--RAG-blue)](deposit-assistant/SOLUTION_DOC.md)
 [![Citation Firewall](https://img.shields.io/badge/Guardrails-AST%20Citation%20Firewall-orange)](deposit-assistant/SOLUTION_DOC.md)
 
@@ -36,7 +36,7 @@ Built with a **zero-external-database Micro-RAG architecture** (`gemini-3.5-flas
     ├── raw_outputs/                        # 6 unedited case outputs (JSON + legal notices)
     ├── SOLUTION_DOC.md                     # Comprehensive 2-page system architecture documentation
     ├── WALKTHROUGH_SCRIPT.md               # 2-minute Loom/video demonstration script
-    └── test_*.py                           # 42 automated unit tests across 6 test suites
+    └── test_*.py                           # 52 automated unit tests across 8 test suites
 ```
 
 ---
@@ -66,7 +66,7 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-### 4. Running the Test Suite (48 Unit Tests)
+### 4. Running the Test Suite (52 Unit Tests)
 ```bash
 python -m unittest discover -v
 ```

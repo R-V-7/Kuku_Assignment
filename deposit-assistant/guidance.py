@@ -1,5 +1,7 @@
 """Reviewed, safe legal information; no case-specific legal conclusion is made."""
 
+import json
+from typing import Any
 from models import CaseFacts
 
 SOURCES = {
@@ -83,11 +85,75 @@ def _categorize_deduction(reason: str) -> str:
     return "general"
 
 
+def _generate_llm_deduction_guidance(
+    case: CaseFacts, reason: str, posture: str, client: Any
+) -> list[str] | None:
+    """Uses Gemini 3.5 Flash Lite to generate hyper-tailored statutory guidance
+
+    for novel or unlisted deduction excuses, grounded strictly in ICA §73 and MTA §11.
+    """
+    facts_str = f"Landlord Stated Reason: {reason}\n"
+    if case.deduction_amount_inr:
+        facts_str += f"Deduction Amount: ₹{case.deduction_amount_inr:,}\n"
+    if case.other_details:
+        facts_str += f"Reported Details: {'; '.join(case.other_details)}\n"
+
+    prompt = f"""You are a specialized Indian residential tenancy legal advisor.
+Provide structured, objective statutory guidance for a tenant disputing a security deposit deduction under Section 11 of the Model Tenancy Act, 2021 and Section 73 & 74 of the Indian Contract Act, 1872.
+
+DISPUTE CONTEXT:
+{facts_str}
+Dispute Posture: {posture}
+
+CRITICAL RULES:
+1. Civil Law Only: Strictly ground in Section 73/74 ICA and Section 11 MTA. NEVER cite Section 405 IPC or criminal statutes.
+2. Differentiate between ordinary domestic wear & tear (owner's responsibility) vs. tenant-caused breach/negligence.
+3. Evidentiary Threshold: Highlight the necessity of genuine third-party contractor GST invoices and move-out joint inspection proof.
+4. Conclude with a concrete, bulleted '**Actionable Strategy:**' paragraph.
+
+Return strictly a JSON object with this structure:
+{{
+  "analysis_paragraphs": [
+    "Paragraph 1 analyzing the legal position for this specific deduction...",
+    "Paragraph 2 on statutory burden of proof and required GST receipts...",
+    "**Actionable Strategy:** Steps the tenant should take in their formal demand notice..."
+  ]
+}}
+"""
+    try:
+        if callable(getattr(client, "generate_json", None)):
+            resp = client.generate_json(prompt, {"type": "object"}).text.strip()
+        else:
+            resp = client.generate_text(prompt).text.strip()
+
+        if resp.startswith("```") and resp.endswith("```"):
+            resp = "\n".join(resp.splitlines()[1:-1]).strip()
+
+        data = json.loads(resp)
+        paras = data.get("analysis_paragraphs")
+        if isinstance(paras, list) and len(paras) >= 2:
+            base_header = (
+                f"I cannot determine from these facts alone whether a deduction for '{reason}' is legally justified in your specific dispute, "
+                f"as conclusive determination requires examining your signed tenancy agreement and factual evidence. However, under Indian law, the legal position is as follows:"
+            )
+            out = [base_header]
+            if case.deduction_amount_inr is not None:
+                out.append(
+                    f"You reported a proposed deduction of ₹{case.deduction_amount_inr:,}; this is the amount stated by the landlord, not a finding that it is valid or legally owed."
+                )
+            out.extend([str(p).strip() for p in paras if str(p).strip()])
+            return out
+    except Exception:
+        return None
+    return None
+
+
 def guidance_for(
     case: CaseFacts,
     topic: str,
     evaluation_text: str = "",
     posture: str | None = None,
+    client: Any | None = None,
 ) -> tuple[list[str], list[str]]:
     if case.scope != "residential_deposit":
         return (
@@ -116,8 +182,6 @@ def guidance_for(
         else:
             reason = "the claimed deduction"
 
-        category = _categorize_deduction(reason)
-
         if posture == "justified":
             ded_str = (
                 f"₹{case.deduction_amount_inr:,}"
@@ -132,6 +196,14 @@ def guidance_for(
                 "**Actionable Strategy:** Verify that the invoice totals match the deducted amount and that the billing periods match your occupancy. If the amounts reconcile, this deduction is legally valid, and formal dispute or litigation is not recommended.",
             ]
             return paragraphs, ["mta", "contract"]
+
+        # Attempt LLM generation if client is available
+        if client is not None:
+            llm_paras = _generate_llm_deduction_guidance(case, reason, posture, client)
+            if llm_paras:
+                return llm_paras, ["contract", "aid"]
+
+        category = _categorize_deduction(reason)
 
         paragraphs = [
             f"I cannot determine from these facts alone whether a deduction for '{reason}' is legally justified in your specific dispute, as conclusive determination requires examining your signed tenancy agreement and factual evidence. However, under Indian law, the legal position is as follows:"

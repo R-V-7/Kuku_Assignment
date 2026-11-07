@@ -92,7 +92,7 @@ $env:GEMINI_MODEL = "gemini-3.5-flash-lite"
 ```powershell
 python -m unittest discover -v
 ```
-*(Executes 28 comprehensive unit tests covering PII redaction, vector retrieval, citation firewall interception, UT mapping, and demand notice generation).*
+*(Executes 52 comprehensive unit tests covering PII redaction, vector retrieval, citation firewall interception, UT mapping, demand notice generation, evidence strength scoring, pushback simulation, and hybrid LLM modules).*
 
 ### 4. Launch Streamlit Application
 

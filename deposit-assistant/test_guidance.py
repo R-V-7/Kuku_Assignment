@@ -128,6 +128,35 @@ class GuidanceTests(unittest.TestCase):
         self.assertIn("Lok Adalat", combined_help)
         self.assertNotIn("Legal Action Not Recommended", combined_help)
 
+    def test_hybrid_llm_guidance_generation(self):
+        """When an LLM client provides custom statutory analysis, guidance_for integrates it."""
+        from typing import Any
+        from llm_client import ModelResponse
+
+        class FakeGuidanceLLM:
+            def generate_json(self, prompt: str, schema: Any) -> ModelResponse:
+                return ModelResponse(
+                    text='{"analysis_paragraphs": ["Custom LLM analysis of piped gas bill under Section 73 ICA.", "**Actionable Strategy:** Demand actual PNG meter statement."]}',
+                    model="test",
+                )
+
+            def generate_text(self, prompt: str) -> ModelResponse:
+                return ModelResponse(
+                    text='{"analysis_paragraphs": ["Custom LLM analysis of piped gas bill under Section 73 ICA.", "**Actionable Strategy:** Demand actual PNG meter statement."]}',
+                    model="test",
+                )
+
+        case = CaseFacts(
+            scope="residential_deposit",
+            deduction_reason="unpaid piped gas pipeline bill",
+            deduction_amount_inr=3500,
+        )
+        paragraphs, sources = guidance_for(case, "Can the landlord deduct for unpaid piped gas pipeline bill?", client=FakeGuidanceLLM())
+        combined = " ".join(paragraphs)
+        self.assertIn("Custom LLM analysis of piped gas bill", combined)
+        self.assertIn("Demand actual PNG meter statement", combined)
+        self.assertIn("contract", sources)
+
 
 if __name__ == "__main__":
     unittest.main()

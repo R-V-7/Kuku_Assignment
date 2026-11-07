@@ -112,9 +112,15 @@ class DisputeEngine:
         topic: str,
         evaluation_text: str = "",
         posture: str | None = None,
+        client: ModelClient | None = None,
     ) -> tuple[list[str], list[str]]:
-        """Static rule-based safe guidance evaluation conditioned on dispute posture."""
-        return guidance_for(case, topic, evaluation_text=evaluation_text, posture=posture)
+        """Hybrid rule-based + LLM safe guidance evaluation conditioned on dispute posture."""
+        if client is None:
+            try:
+                client = create_client()
+            except Exception:
+                client = None
+        return guidance_for(case, topic, evaluation_text=evaluation_text, posture=posture, client=client)
 
     @staticmethod
     def classify_dispute_posture(
@@ -160,10 +166,15 @@ class DisputeEngine:
 
     @staticmethod
     def simulate_landlord_pushback(
-        case: CaseFacts, posture: str | None = None
+        case: CaseFacts, posture: str | None = None, client: ModelClient | None = None
     ) -> list[dict[str, Any]]:
         """Generates realistic landlord pushbacks with legally grounded WhatsApp rebuttals."""
-        return simulate_pushbacks(case, posture=posture)
+        if client is None:
+            try:
+                client = create_client()
+            except Exception:
+                client = None
+        return simulate_pushbacks(case, posture=posture, client=client)
 
 
 __all__ = [

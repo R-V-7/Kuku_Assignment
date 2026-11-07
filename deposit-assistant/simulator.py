@@ -9,12 +9,80 @@ and equips tenants with legally grounded, 2-line WhatsApp rebuttals citing:
 - Legal Services Authorities Act, 1987 (Pre-Litigation Lok Adalat)
 """
 
+import json
 from typing import Any
 from models import CaseFacts
 from draft import classify_dispute_posture
 
 
-def simulate_pushbacks(case: CaseFacts, posture: str | None = None) -> list[dict[str, Any]]:
+def _simulate_pushbacks_with_llm(
+    case: CaseFacts, posture: str, client: Any
+) -> list[dict[str, Any]] | None:
+    """Uses Gemini 3.5 Flash Lite to roleplay realistic adversarial landlord WhatsApp messages
+
+    and generate statutorily grounded 2-line tenant rebuttals tailored to the dispute story.
+    """
+    dep = case.deposit_amount_inr or 0
+    ret = case.amount_returned_inr or 0
+    disputed_amt = max(0, dep - ret) if case.deposit_amount_inr is not None else (case.deduction_amount_inr or 0)
+    amt_str = f"₹{disputed_amt:,}" if disputed_amt > 0 else "the security deposit"
+
+    prompt = f"""You are an Indian tenancy legal strategist and negotiation simulator.
+Simulate the 3 most realistic adversarial WhatsApp counter-arguments an Indian landlord will send after receiving a formal demand notice for {amt_str}, and provide polite, firm 2-line WhatsApp rebuttals grounded in Indian law.
+
+CASE CONTEXT:
+- Disputed Sum: {amt_str}
+- Landlord's Stated Deduction Reason: {case.deduction_reason or 'None'}
+- Agreed Deduction Amount: {case.deduction_amount_inr or 'Unspecified'}
+- Rental Property Location: {case.city or ''}, {case.state or ''}
+- Signed Agreement Exists: {case.written_agreement_exists}
+- Bank Payment Proof: {case.payment_proof_exists}
+- Move-out Date: {case.move_out_date or 'Recent'}
+- Other Facts: {'; '.join(case.other_details or [])}
+
+REQUIRED TACTIC STRUCTURE (3 TACTICS):
+1. Tactic 1: Court Delay / Litigation Threat ("Courts in India take 10 years, do what you want")
+   - Rebuttal cites 60-day Rent Authority summary resolution under Model Tenancy framework and free pre-litigation Lok Adalat (Legal Services Authorities Act, 1987).
+2. Tactic 2: Notice Period Forfeiture / Counter-Penalty ("You vacated without giving 2 months notice")
+   - Rebuttal cites Section 74 Indian Contract Act (unilateral penalty forfeiture barred without actual unlet vacancy loss) and Section 106 Transfer of Property Act.
+3. Tactic 3: Specific Deduction Pushback regarding "{case.deduction_reason or 'damages'}"
+   - Rebuttal cites Section 11 Model Tenancy Act (mandatory contractor GST invoices and bills for actual expenditure) and Section 73 ICA.
+
+Return strictly a JSON list containing exactly 3 objects:
+[
+  {{
+    "title": "Tactic 1: ...",
+    "landlord_message": "Realistic direct WhatsApp quote from landlord in English or natural Indian tone...",
+    "legal_position": "Objective explanation of why this argument fails under Indian statutes...",
+    "statutory_hook": "Specific Indian acts and sections...",
+    "whatsapp_rebuttal": "Dear Landlord, ... (concise 2-3 lines ready to copy and send)"
+  }},
+  ...
+]
+"""
+    try:
+        if callable(getattr(client, "generate_json", None)):
+            resp = client.generate_json(prompt, {"type": "array"}).text.strip()
+        else:
+            resp = client.generate_text(prompt).text.strip()
+
+        if resp.startswith("```") and resp.endswith("```"):
+            resp = "\n".join(resp.splitlines()[1:-1]).strip()
+
+        data = json.loads(resp)
+        if isinstance(data, list) and len(data) == 3:
+            for item in data:
+                if not all(k in item for k in ["title", "landlord_message", "legal_position", "statutory_hook", "whatsapp_rebuttal"]):
+                    return None
+            return data
+    except Exception:
+        return None
+    return None
+
+
+def simulate_pushbacks(
+    case: CaseFacts, posture: str | None = None, client: Any | None = None
+) -> list[dict[str, Any]]:
     """Generates 3 realistic adversarial landlord responses and corresponding
 
     statutorily grounded WhatsApp rebuttals tailored to the specific case facts.
@@ -50,6 +118,12 @@ def simulate_pushbacks(case: CaseFacts, posture: str | None = None) -> list[dict
                 ),
             }
         ]
+
+    # Attempt LLM pushback simulation if client is available
+    if client is not None:
+        llm_pushbacks = _simulate_pushbacks_with_llm(case, posture, client)
+        if llm_pushbacks:
+            return llm_pushbacks
 
     pushbacks = []
 
