@@ -64,6 +64,21 @@ class SimulatorTests(unittest.TestCase):
         self.assertIn("Closing", pushbacks[0]["title"])
         self.assertIn("settlement", pushbacks[0]["whatsapp_rebuttal"].lower())
 
+    def test_arbitrary_custom_reason_pushback(self):
+        """Any arbitrary, unexpected deduction reason must dynamically adapt Tactic 3."""
+        case = CaseFacts(
+            scope="residential_deposit",
+            deposit_amount_inr=45000,
+            amount_returned_inr=25000,
+            deduction_amount_inr=20000,
+            deduction_reason="geyser coil replacement and terrace planter breakage",
+        )
+        pushbacks = simulate_pushbacks(case)
+        self.assertEqual(len(pushbacks), 3)
+        self.assertIn("Geyser Coil Replacement", pushbacks[2]["title"])
+        self.assertIn("geyser coil replacement and terrace planter breakage", pushbacks[2]["whatsapp_rebuttal"])
+        self.assertIn("₹20,000", pushbacks[2]["whatsapp_rebuttal"])
+
 
 if __name__ == "__main__":
     unittest.main()

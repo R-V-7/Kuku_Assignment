@@ -154,23 +154,45 @@ def simulate_pushbacks(case: CaseFacts, posture: str | None = None) -> list[dict
                 f"or refund the deducted amount of {amt_str}.\""
             ),
         })
-    else:
+    elif any(k in reason_lower for k in ["clean", "deep cleaning", "housekeeping", "maid"]):
         pushbacks.append({
-            "title": "Tactic 3: Unsubstantiated Deep Cleaning / Damage Claim",
+            "title": "Tactic 3: Routine Turnover Cleaning (\"Flat was not left in clean condition\")",
             "landlord_message": (
-                f"\"The flat was not left in clean condition. I had to hire deep cleaners and replace items. "
-                f"That cost me {amt_str}, so I am retaining it.\""
+                f"\"The flat was not left in pristine clean condition. I had to hire professional deep cleaners to prepare it for the next tenant. "
+                f"That cost me {amt_str}, so I am retaining it from your deposit.\""
             ),
             "legal_position": (
-                "Section 11 of the Model Tenancy Act, 2021 mandates that any deduction from a security deposit must be "
-                "substantiated by an itemized written explanation accompanied by actual expenditure receipts. Unilateral estimates "
-                "without third-party vendor vouchers are legally invalid."
+                "Section 11 of the Model Tenancy Act, 2021 mandates that any deduction must be substantiated by actual third-party tax invoices. "
+                "Moreover, ordinary turnover cleaning between tenants is standard owner maintenance. Deductions are only permissible for unusual, "
+                "extreme unhygienic conditions supported by registered vendor vouchers (e.g. Urban Company GST receipts)."
             ),
             "statutory_hook": "Section 11 Model Tenancy Act, 2021 & Section 73 Indian Contract Act, 1872",
             "whatsapp_rebuttal": (
-                f"\"Dear Landlord, under Section 11 of the Model Tenancy Act and Section 73 ICA, any deduction requires an itemized written breakdown "
-                f"and official contractor GST invoices/receipts for actual money spent. Without verifiable tax invoices and move-out inspection "
-                f"records, unilateral retention is legally invalid. Please share the official GST receipts or refund {amt_str}.\""
+                f"\"Dear Landlord, under Section 11 of the Model Tenancy Act and Section 73 ICA, routine turnover cleaning is the property owner's "
+                f"maintenance cost, not tenant damage. Unilateral deductions without official registered cleaning agency GST receipts and move-in/out "
+                f"comparison photos are legally invalid. Please provide the genuine vendor GST invoices or release the full balance of {amt_str}.\""
+            ),
+        })
+    else:
+        # Dynamic fallback for ANY arbitrary deduction reason (e.g. broken tiles, geyser repairs, electrical fixtures, terrace leaks)
+        custom_reason = case.deduction_reason.strip() if case.deduction_reason and case.deduction_reason.strip() else "claimed damages"
+        pushbacks.append({
+            "title": f"Tactic 3: Unsubstantiated Deduction for '{custom_reason.title()}'",
+            "landlord_message": (
+                f"\"I had to spend {amt_str} to handle {custom_reason} after you vacated the property. "
+                f"That expenditure is being deducted from your security deposit balance.\""
+            ),
+            "legal_position": (
+                f"Section 11 of the Model Tenancy Act, 2021 mandates that any deduction for '{custom_reason}' must be accompanied by an itemized "
+                f"written explanation and genuine third-party receipts. Under Section 73 of the Indian Contract Act, 1872, the burden of proving "
+                f"actual tenant-caused breach beyond reasonable wear and tear rests entirely upon the property owner."
+            ),
+            "statutory_hook": "Section 11 Model Tenancy Act, 2021 & Section 73 Indian Contract Act, 1872",
+            "whatsapp_rebuttal": (
+                f"\"Dear Landlord, under Section 11 of the Model Tenancy Act, 2021 and Section 73 of the Indian Contract Act, 1872, deductions for "
+                f"'{custom_reason}' cannot be made unilaterally without providing genuine contractor GST tax invoices and joint handover inspection proof. "
+                f"In the absence of verifiable third-party receipts for actual expenditure, withholding {amt_str} is legally unviable. "
+                f"Please share the official GST invoices or process the full refund within the 15-day notice period.\""
             ),
         })
 
