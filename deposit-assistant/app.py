@@ -28,6 +28,8 @@ from engine import (
     classify_dispute_posture,
     create_client,
     SOURCES,
+    calculate_evidence_strength,
+    simulate_pushbacks,
 )
 
 st.set_page_config(
@@ -657,9 +659,37 @@ if confirmed_case is not None:
         f"₹{ded:,}" if ded is not None else "Not Specified",
     )
 
-    tab_rag, tab_draft, tab_telemetry = st.tabs([
+    # ==============================================================================
+    # EVIDENCE STRENGTH & WIN-PROBABILITY METER (PRODUCT INNOVATION #4)
+    # ==============================================================================
+    ev_data = DisputeEngine.calculate_evidence_meter(confirmed_case)
+    ev_score = ev_data["score"]
+    ev_tier = ev_data["tier"]
+
+    st.markdown("---")
+    col_ev1, col_ev2 = st.columns([1, 2])
+    with col_ev1:
+        st.markdown(f"#### 📊 Case Strength: **{ev_score}%**")
+        st.caption(f"**Documentary Position:** `{ev_tier}`")
+        st.progress(ev_score / 100.0)
+    with col_ev2:
+        st.info(f"⚖️ **Evidentiary Leverage Audit:** {ev_data['summary']}")
+
+    with st.expander("🔍 Inspect Statutory Burden of Proof Breakdown (BSA 2023 & ICA 1872)", expanded=False):
+        for item in ev_data["breakdown"]:
+            status_icon = "🟢" if item["status"] == "POSITIVE" else ("🔴" if item["status"] == "NEGATIVE" else "⚪")
+            st.markdown(
+                f"- {status_icon} **{item['factor']}** (`{item['delta']}` · `{item['statute']}`): {item['description']}"
+            )
+        if ev_data["actionable_tips"]:
+            st.markdown("💡 **Actionable Steps to Increase Recovery Leverage:**")
+            for tip in ev_data["actionable_tips"]:
+                st.markdown(f"  - {tip}")
+
+    tab_rag, tab_draft, tab_pushback, tab_telemetry = st.tabs([
         "⚖️ Bounded Statutory Guidance (Micro-RAG)",
         "📝 Demand Letter Draft",
+        "🥊 Landlord Pushback Simulator & WhatsApp Rebuttals",
         "🛡️ System Telemetry & Guardrail Log",
     ])
 
@@ -832,6 +862,39 @@ if confirmed_case is not None:
                 st.info("💡 You can sign this closure letter and send it to confirm mutual discharge of all claims.")
             else:
                 st.info("💡 You can copy this notice and send it via registered post, WhatsApp, or email.")
+
+    # ==============================================================================
+    # TAB 3: LANDLORD PUSHBACK SIMULATOR & WHATSAPP REBUTTALS (PRODUCT INNOVATION #2)
+    # ==============================================================================
+    with tab_pushback:
+        st.subheader("🥊 Landlord Pushback Simulator & WhatsApp Rebuttals")
+        st.caption(
+            "Game-theoretic counter-strategy: Predicts the 3 most likely adversarial responses from this landlord "
+            "and equips you with concise, legally grounded WhatsApp rebuttals."
+        )
+
+        pushback_list = DisputeEngine.simulate_landlord_pushback(
+            confirmed_case, posture=selected_posture
+        )
+
+        for i, pb in enumerate(pushback_list):
+            with st.container():
+                st.markdown(f"#### {pb['title']}")
+                c_pb1, c_pb2 = st.columns([1, 1])
+                with c_pb1:
+                    st.error(f"💬 **Landlord's Expected Pushback:**\n\n{pb['landlord_message']}")
+                    st.caption(f"⚖️ **Legal Reality:** {pb['legal_position']}")
+                    st.caption(f"📚 **Statutory Hook:** `{pb['statutory_hook']}`")
+                with c_pb2:
+                    st.success("📲 **Your 2-Line WhatsApp Rebuttal (Copy & Send):**")
+                    st.text_area(
+                        f"Rebuttal #{i+1}",
+                        value=pb["whatsapp_rebuttal"],
+                        height=130,
+                        key=f"rebuttal_text_{i}",
+                        label_visibility="collapsed",
+                    )
+                st.markdown("---")
 
     with tab_telemetry:
         st.subheader("🛡️ Layer 5: Post-Generation AST Citation Firewall & Telemetry Log")

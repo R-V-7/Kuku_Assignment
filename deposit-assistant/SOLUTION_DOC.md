@@ -3,7 +3,7 @@
 
 **Candidate:** AI Generalist Candidate  
 **Problem Selected:** Problem 2 — Build an AI Lawyer (Residential Rental Security Deposit Recovery in India)  
-**Deliverables:** Working Streamlit Prototype, 42 Automated Unit Tests, 6 Unedited Raw Output Runs, 2-Page Solution Doc  
+**Deliverables:** Working Streamlit Prototype, 48 Automated Unit Tests, 6 Unedited Raw Output Runs, 2-Page Solution Doc  
 
 ---
 
@@ -124,6 +124,10 @@ We eliminated both failures by implementing a **Strict 3-State Finite State Mach
 
 - **Zero Hardcoded Vendor Artifacts:** Provider names and expense descriptions are dynamically extracted from tenant intake facts—never hardcoded into prompts or templates.
 
+#### Product Innovations Beyond Generic Legal Assistants
+1. **Evidence Strength & Win-Probability Meter (`evidence_meter.py`):** Rather than offering static advice, the system computes a dynamic 0–100% evidentiary leverage score based on statutory thresholds (admissible electronic banking records under BSA 2023 §61, signed lease binding terms under ICA 1872 §10, and landlord expenditure proof under MTA 2021 §11), complete with an itemized leverage audit and actionable steps to increase legal probability.
+2. **Adversarial Landlord Pushback Simulator (`simulator.py`):** Transforms the assistant from a passive document generator into an active negotiation copilot. It predicts the 3 most common adversarial counter-arguments Indian landlords employ (*"Court takes 10 years"*, *"Notice period penalty forfeiture"*, and unproven repair charges) and equips the tenant with concise, copy-pasteable 2-line WhatsApp rebuttals citing MTA §11 summary 60-day Rent Authority disposal, Section 74 ICA penalty bans, and DLSA Lok Adalat pre-litigation.
+
 ---
 
 ### 5. Honest Failure Modes & System Boundaries
@@ -138,5 +142,5 @@ An honest AI solution understands its limitations:
 
 ### 6. Verification, Telemetry & Real-World Economics
 
-- **42 Automated Unit Tests (100% Pass Rate):** `test_rag.py`, `test_engine.py`, `test_draft.py`, `test_guidance.py`, `test_followup.py`, `test_intake.py` verify PII redaction, vector retrieval, citation firewall interception, UT / Indian state auto-mapping, strict follow-up state machine question routing (preventing field overwrite bugs), uncertainty auto-pruning, automatic returned amount calculation, anti-hallucination concession guards, and objective 3-state machine routing (settlement vs demand across guidance and drafting).
+- **48 Automated Unit Tests (100% Pass Rate):** `test_rag.py`, `test_engine.py`, `test_draft.py`, `test_guidance.py`, `test_followup.py`, `test_intake.py`, `test_evidence_meter.py`, `test_simulator.py` verify PII redaction, vector retrieval, citation firewall interception, UT / Indian state auto-mapping, strict follow-up state machine question routing (preventing field overwrite bugs), uncertainty auto-pruning, automatic returned amount calculation, statutory evidence leverage scoring, adversarial pushback simulation, anti-hallucination concession guards, and objective 3-state machine routing (settlement vs demand across guidance and drafting).
 - **Micro-RAG Economics:** At ~1,200 tokens per interaction using `gemini-3.5-flash-lite` and `text-embedding-004`, end-to-end triage costs less than **$0.00015 USD (~₹0.012 INR)** per case with sub-second execution latency, making nationwide legal empowerment viable at near-zero marginal cost.

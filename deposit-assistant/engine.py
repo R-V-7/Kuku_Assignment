@@ -22,6 +22,8 @@ from intake import extract_case, IntakeError
 from followup import followup_questions, unanswered_questions
 from guidance import guidance_for, get_guidance_topics, SOURCES
 from draft import generate_demand_letter, classify_dispute_posture
+from evidence_meter import calculate_evidence_strength
+from simulator import simulate_pushbacks
 from llm_client import ModelClient, ModelError, create_client
 from rag import (
     redact_pii,
@@ -144,6 +146,18 @@ class DisputeEngine:
             posture=posture,
         )
 
+    @staticmethod
+    def calculate_evidence_meter(case: CaseFacts) -> dict[str, Any]:
+        """Calculates 0-100% documentary evidence strength and statutory burden audit."""
+        return calculate_evidence_strength(case)
+
+    @staticmethod
+    def simulate_landlord_pushback(
+        case: CaseFacts, posture: str | None = None
+    ) -> list[dict[str, Any]]:
+        """Generates realistic landlord pushbacks with legally grounded WhatsApp rebuttals."""
+        return simulate_pushbacks(case, posture=posture)
+
 
 __all__ = [
     "CaseFacts",
@@ -162,6 +176,8 @@ __all__ = [
     "SOURCES",
     "generate_demand_letter",
     "classify_dispute_posture",
+    "calculate_evidence_strength",
+    "simulate_pushbacks",
     "DisputeEngine",
     "redact_pii",
     "expand_legal_query",

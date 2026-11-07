@@ -1,6 +1,6 @@
 # Kuku AI Generalist Assignment — Problem 2: Deposit Dispute Assistant
 
-[![Tests](https://img.shields.io/badge/Unit%20Tests-42%20Passed-brightgreen)](deposit-assistant/SOLUTION_DOC.md)
+[![Tests](https://img.shields.io/badge/Unit%20Tests-48%20Passed-brightgreen)](deposit-assistant/SOLUTION_DOC.md)
 [![Architecture](https://img.shields.io/badge/Architecture-5--Layer%20Micro--RAG-blue)](deposit-assistant/SOLUTION_DOC.md)
 [![Citation Firewall](https://img.shields.io/badge/Guardrails-AST%20Citation%20Firewall-orange)](deposit-assistant/SOLUTION_DOC.md)
 
@@ -24,6 +24,8 @@ Built with a **zero-external-database Micro-RAG architecture** (`gemini-3.5-flas
     ├── guidance.py                         # Evaluation-conditioned legal guidance engine
     ├── draft.py                            # Strict 3-state legal drafting machine (Notice vs. Settlement)
     ├── drafter.py                          # Alias module for draft.py
+    ├── evidence_meter.py                   # Evidence Strength & Win-Probability Meter (BSA §61 & ICA §10)
+    ├── simulator.py                        # Landlord Pushback Simulator & WhatsApp Rebuttals
     ├── statutes.json                       # Verified Indian statutory knowledge base
     ├── rag/                                # Micro-RAG pipeline
     │   ├── redactor.py                     # Layer 1: PII Redaction (Aadhaar, PAN, phone)
@@ -64,7 +66,7 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-### 4. Running the Test Suite (42 Unit Tests)
+### 4. Running the Test Suite (48 Unit Tests)
 ```bash
 python -m unittest discover -v
 ```
@@ -97,3 +99,4 @@ python -m unittest discover -v
 5. **Layer 5: Post-Generation AST Citation Firewall & Telemetry**
    - Inspects generated text citations against the whitelist of retrieved chunks.
    - Intercepts and replaces ungrounded citations (e.g. criminal escalation under Section 405 IPC) with verified civil remedies before display.
+

@@ -77,7 +77,7 @@
   "layer_4_bounded_rag_evaluation": "{\"scope\": \"residential_deposit\", \"uncertainties\": [\"Details incomplete\"]}",
   "layer_5_citation_firewall_status": "PASSED",
   "layer_5_telemetry": {
-    "latency_ms": 1.01,
+    "latency_ms": 0.0,
     "estimated_tokens": 312,
     "estimated_cost_usd": 3.1e-05,
     "firewall_status": "PASSED",
