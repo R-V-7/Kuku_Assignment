@@ -8,13 +8,63 @@ Evaluates documentary leverage and statutory evidentiary burden under:
 
 from typing import Any
 from models import CaseFacts
+from draft import classify_dispute_posture
 
 
 def calculate_evidence_strength(case: CaseFacts) -> dict[str, Any]:
-    """Calculates a deterministic 0-100% case strength score based on statutory
+    """Calculates a deterministic 0-100% case recovery strength score based on statutory
 
     evidentiary thresholds, and generates an itemized leverage audit.
     """
+    posture = classify_dispute_posture(case)
+
+    # =========================================================================
+    # SPECIAL CASE: FULLY JUSTIFIED DEDUCTIONS (100% Proven via GST Invoices)
+    # =========================================================================
+    if posture == "justified":
+        return {
+            "score": 15,
+            "tier": "Claim Unviable (Landlord Substantiated)",
+            "color": "red",
+            "summary": (
+                "The landlord has fully satisfied the statutory burden of proof under Section 11 of the "
+                "Model Tenancy Act, 2021 and Section 73 of the Indian Contract Act, 1872 by furnishing genuine third-party "
+                "GST invoices and utility vouchers for tenant-caused damage or consumption. Challenging this deduction "
+                "in court or consumer forum is legally unviable and would likely result in dismissal with costs."
+            ),
+            "breakdown": [
+                {
+                    "factor": "Landlord Satisfied Statutory Evidentiary Threshold",
+                    "delta": "-60%",
+                    "status": "NEGATIVE",
+                    "statute": "MTA 2021 §11",
+                    "description": "Landlord furnished official contractor GST tax invoices and meter bills, meeting the legal burden of proof.",
+                },
+                {
+                    "factor": "Tenant Liability for Admitted Physical Damage / Arrears",
+                    "delta": "-25%",
+                    "status": "NEGATIVE",
+                    "statute": "ICA 1872 §73",
+                    "description": "Actual expenditure resulting from tenant negligence beyond reasonable wear and tear is legally deductible.",
+                },
+                {
+                    "factor": "Verified Deposit Payment & Lease Custody",
+                    "delta": "+10%",
+                    "status": "POSITIVE",
+                    "statute": "BSA 2023 §61",
+                    "description": "Payment records confirm original deposit custody, which the landlord has accounted for through refund + invoices.",
+                },
+            ],
+            "actionable_tips": [
+                "Do not pursue legal action, NALSA legal aid, or consumer forum complaints; the landlord complied with statutory requirements.",
+                "Verify that the billing dates and items correspond to your tenancy period.",
+                "Execute the mutual Deposit Settlement & Tenancy Discharge Record (in the 'Demand Letter Draft' tab) to confirm final closure.",
+            ],
+        }
+
+    # =========================================================================
+    # CONTESTED / UNJUSTIFIED / PARTIAL CASES
+    # =========================================================================
     score = 40  # Baseline neutral starting point
     breakdown = []
     tips = []
@@ -92,13 +142,7 @@ def calculate_evidence_strength(case: CaseFacts) -> dict[str, Any]:
         score -= 5
         tips.append("Confirm your exact move-out date and preserve key handover text messages.")
 
-    # 4. Landlord's Evidentiary Deficit vs Justified Receipts (MTA §11 & ICA §73)
-    other_details_str = " ".join(case.other_details).lower()
-    has_landlord_invoices = any(
-        k in other_details_str
-        for k in ["invoice", "gst", "receipt", "bill", "voucher", "contractor bill"]
-    )
-
+    # 4. Landlord's Evidentiary Deficit vs Partial Receipts (MTA §11 & ICA §73)
     reason_lower = (case.deduction_reason or "").lower()
     is_personal_loss = any(
         k in reason_lower
@@ -114,18 +158,18 @@ def calculate_evidence_strength(case: CaseFacts) -> dict[str, Any]:
             "statute": "ICA 1872 §73",
             "description": "Personal business losses have zero legal connection to residential tenancy. Clear breach of contract.",
         })
-    elif has_landlord_invoices:
-        # Landlord has verified invoices
-        score -= 25
+    elif posture == "partial":
+        score -= 10
         breakdown.append({
-            "factor": "Landlord Produced Verified Tax Invoices",
-            "delta": "-25%",
-            "status": "NEGATIVE",
+            "factor": "Mixed Evidence (Partially Invoiced)",
+            "delta": "-10%",
+            "status": "NEUTRAL",
             "statute": "MTA 2021 §11",
-            "description": "Landlord has documentary receipts for actual expenditure, satisfying the statutory burden of proof.",
+            "description": "Some expenses are verified by invoices (which must be conceded), but the remainder is unproven.",
         })
+        tips.append("Concede the verified bills in your demand notice and focus your legal claim exclusively on the unproven balance.")
     else:
-        # Landlord made arbitrary deduction without bills
+        # Landlord made arbitrary deduction without bills (0% proven)
         score += 15
         breakdown.append({
             "factor": "Landlord Lacks Itemized Receipts",

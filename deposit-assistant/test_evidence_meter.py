@@ -59,8 +59,11 @@ class EvidenceMeterTests(unittest.TestCase):
             other_details=["Landlord provided official carpenter GST invoice and BESCOM bill."],
         )
         result = calculate_evidence_strength(case)
+        self.assertEqual(result["score"], 15)
+        self.assertEqual(result["tier"], "Claim Unviable (Landlord Substantiated)")
+        self.assertEqual(result["color"], "red")
         factors = [b["factor"] for b in result["breakdown"]]
-        self.assertIn("Landlord Produced Verified Tax Invoices", factors)
+        self.assertIn("Landlord Satisfied Statutory Evidentiary Threshold", factors)
 
 
 if __name__ == "__main__":
