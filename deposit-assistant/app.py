@@ -61,6 +61,8 @@ if "rag_synthesis" not in st.session_state:
     st.session_state.rag_synthesis = ""
 if "telemetry" not in st.session_state:
     st.session_state.telemetry = None
+if "gemini_client" not in st.session_state:
+    st.session_state.gemini_client = None
 
 # Sidebar: Configuration & Presets
 with st.sidebar:
@@ -876,7 +878,7 @@ if confirmed_case is not None:
         )
 
         pushback_list = DisputeEngine.simulate_landlord_pushback(
-            confirmed_case, posture=selected_posture, client=st.session_state.gemini_client
+            confirmed_case, posture=selected_posture
         )
 
         for i, pb in enumerate(pushback_list):
