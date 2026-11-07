@@ -10,6 +10,43 @@ Built with a **zero-external-database Micro-RAG architecture** (`gemini-3.5-flas
 
 ---
 
+## 💡 Key Product & AI Innovations (Beyond Generic Legal Chatbots)
+
+While most legal AI projects are simple "prompt-and-pray" demand letter generators, the **Deposit Dispute Assistant** introduces four substantive product innovations that transform it into an active, game-theoretic negotiation copilot:
+
+### 1. 📊 Evidence Strength & Win-Probability Meter (`evidence_meter.py`)
+* **What it does:** Computes a dynamic **0–100% Case Strength Score** grounded in the Indian statutory burden of proof.
+* **Statutory Rigor:**
+  * **+25% (BSA 2023 §61):** Electronic banking trail (UPI / NEFT records) serving as primary electronic evidence.
+  * **+20% (ICA 1872 §10 & MTA 2021 §4):** Signed written lease agreement binding exit protocols.
+  * **+10% (TPA 1882 §108(q)):** Documented move-out date establishing the statutory 30-day refund deadline.
+  * **Objective Recalibration (MTA 2021 §11):** If the landlord complied with statutory requirements (provided genuine contractor GST invoices for admitted tenant damages), the score drops to **15% (Claim Unviable / Landlord Substantiated)**, actively warning the tenant against futile litigation.
+
+### 2. 🥊 Adversarial Landlord Pushback Simulator & WhatsApp Rebuttals (`simulator.py`)
+* **What it does:** Solves the real-world problem: *"What do I do 10 minutes after sending the demand notice when the landlord pushes back on WhatsApp?"*
+* **Game-Theoretic Roleplay:** Simulates the 3 most common Indian landlord counter-strategies:
+  1. *Procedural Intimidation:* *"Go to court, Indian courts take 10 years"* $\rightarrow$ Rebuttal cites MTA §11 summary 60-day Rent Authority disposal.
+  2. *Notice Period Penalty Forfeiture:* *"You didn't give 2 months notice"* $\rightarrow$ Rebuttal cites ICA §74 penalty bans and TPA §106 15-day statutory baseline.
+  3. *Unsubstantiated Expense Claims:* Custom excuses (*"business losses"*, *"broken geysers"*, *"deep cleaning"*) $\rightarrow$ Rebuttal cites MTA §11 GST invoice mandate.
+* **Hybrid LLM Architecture:** Powered by `gemini-3.5-flash-lite` roleplay with an immediate, zero-latency deterministic fallback that interpolates any arbitrary dispute reason.
+
+### 3. ⚖️ Dispute Resolution Expected Value (EV) & Forum Advisor (`litigation_roi.py`)
+* **What it does:** Prevents financially self-destructive litigation by calculating the **Litigation ROI** across Indian forums:
+  * **Micro-Claims (< ₹15,000):** Warns against hiring private advocates (lawyer retainers exceed claim value); recommends **₹0 Free Pre-Litigation Lok Adalat (NALSA/DLSA)** under the *Legal Services Authorities Act, 1987*.
+  * **Mid-Range (₹15,000 – ₹60,000):** Recommends self-filing on **e-Daakhil (Consumer Commission)** with **₹0 Court Fee** (exempt for claims under ₹5 Lakh under CPA 2019).
+  * **High-Value (> ₹60,000):** Recommends **Rent Authority / Summary Civil Suit (Order 37 CPC)** and computes **accrued statutory interest (@ 8.0% p.a.)** under the *Interest Act, 1978*.
+
+### 4. 📦 One-Click e-Daakhil / DLSA Pre-Litigation Court Dossier (`dossier.py`)
+* **What it does:** When landlords ignore the 15-day demand notice, tenants can generate a complete, court-ready filing petition packet in one click:
+  1. **Court Heading & Jurisdiction:** Formatted for District Consumer Commissions or DLSA Lok Adalat.
+  2. **Chronological List of Dates and Events:** Auto-formatted timeline mapping facts to statutory provisions.
+  3. **Statutory Grounds:** Grounded in ICA §73/74, MTA §11, and BSA §61.
+  4. **Prayer & Relief:** Principal refund + statutory interest + nominal litigation compensation.
+  5. **Verification & Index of Annexures:** Interactive checklist (Lease agreement, Bank proof, Key handover confirmation, Postal tracking).
+  6. **Objective Discharge Mode:** In justified cases, automatically compiles an Accord & Satisfaction Tenancy Discharge Dossier (ICA §63) instead of an adversarial complaint.
+
+---
+
 ## 📁 Repository Structure
 
 ```

@@ -54,6 +54,15 @@ Designed specifically to be **frictionless for evaluators**: runs instantly via 
 
 ---
 
+## 💡 Key Product & AI Innovations
+
+1. **📊 Evidence Strength & Win-Probability Meter (`evidence_meter.py`):** Calculates a dynamic 0–100% evidentiary recovery score based on Indian evidence law (BSA 2023 §61 electronic bank trails, ICA 1872 §10 written lease binding terms, and MTA 2021 §11 landlord expenditure burden). Accurately calibrates to 15% (Unviable) when landlords provide valid contractor GST invoices.
+2. **🥊 Adversarial Landlord Pushback Simulator (`simulator.py`):** Predicts the 3 most common Indian landlord counter-arguments (*"Court takes 10 years"*, *"Notice period penalty forfeiture"*, and unproven repair charges) and equips the tenant with concise, copy-pasteable 2-line WhatsApp rebuttals citing MTA §11, Section 74 ICA, and DLSA Lok Adalat.
+3. **⚖️ Dispute Resolution Expected Value (EV) & Forum Advisor (`litigation_roi.py`):** Calculates 8% p.a. accrued statutory interest under the *Interest Act, 1978*, warns against hiring private advocates for micro-claims (<₹15k), and guides users to ₹0 NALSA/DLSA Pre-Litigation Lok Adalats or self-filed e-Daakhil Consumer Commissions (zero court fees under ₹5 Lakh).
+4. **📦 One-Click e-Daakhil / DLSA Court Dossier Compiler (`dossier.py`):** Generates a court-ready filing petition packet (.md) with a chronological List of Dates & Events, Statutory Grounds, Relief Prayer, and an interactive Index of Annexures checklist for immediate filing when notices are ignored.
+
+---
+
 ## Verified Knowledge Base (`statutes.json`)
 
 The retrieval index contains verified statutory chunks from Indian laws:
