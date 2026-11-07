@@ -1,0 +1,56 @@
+[
+  {
+    "id": "ICA_SEC_73",
+    "act": "Indian Contract Act, 1872",
+    "section": "Section 73",
+    "title": "Compensation for loss or damage caused by breach of contract",
+    "text": "When a contract has been broken, the party who suffers by such breach is entitled to receive, from the party who has broken the contract, compensation for any loss or damage caused to him thereby, which naturally arose in the usual course of things from such breach, or which the parties knew, when they made the contract, to be likely to result from the breach of it. Such compensation is not to be given for any remote and indirect loss or damage sustained by reason of the breach. In estimating the loss or damage, the means which existed of remedying the inconvenience caused by the non-performance of the contract must be taken into account. Security deposits cannot be forfeited or deducted without proof of actual, verifiable loss directly resulting from tenant breach beyond reasonable wear and tear.",
+    "url": "https://www.indiacode.nic.in/bitstream/123456789/2187/2/A187209.pdf",
+    "tags": ["breach", "damage", "wear and tear", "loss", "contract", "deduction", "business losses", "compensation"]
+  },
+  {
+    "id": "MTA_SEC_11",
+    "act": "Model Tenancy Act, 2021",
+    "section": "Section 11",
+    "title": "Security deposit limit and mandatory refund timeline",
+    "text": "The security deposit to be paid by the tenant in advance shall not exceed two months' rent for residential premises. The security deposit shall be refunded to the tenant on the date of handing over vacant possession of the premises to the landlord, after making lawful deductions, if any, for unpaid rent, utilities, and agreed repairs. Any deduction made must be supported by an itemized written statement and receipts for actual expenditure incurred.",
+    "url": "https://mohua.gov.in/upload/uploadfiles/files/Model_Tenancy_Act_English_2021.pdf",
+    "tags": ["deposit", "refund", "timeline", "itemized", "two months", "handover", "possession", "vacating"]
+  },
+  {
+    "id": "MTA_SEC_15",
+    "act": "Model Tenancy Act, 2021",
+    "section": "Section 15",
+    "title": "Division of maintenance responsibilities and routine wear and tear",
+    "text": "Both the landlord and the tenant shall keep the premises in as good a condition as at the commencement of the tenancy, except for normal wear and tear. Capital repairs, structural upkeep, major electrical fixture replacements, and routine breakdown of pre-provided major appliances (such as water purifiers, air conditioners, and geysers) due to age or mechanical depreciation are the responsibility of the landlord. Tenants are responsible only for minor routine maintenance and damages caused by willful negligence.",
+    "url": "https://mohua.gov.in/upload/uploadfiles/files/Model_Tenancy_Act_English_2021.pdf",
+    "tags": ["painting", "wear and tear", "whitewash", "appliances", "water purifier", "ac", "geyser", "repairs", "maintenance"]
+  },
+  {
+    "id": "TPA_SEC_108",
+    "act": "Transfer of Property Act, 1882",
+    "section": "Section 108",
+    "title": "Rights and liabilities of lessor and lessee (Reasonable wear and tear excepted)",
+    "text": "The lessee is bound to keep, and on the termination of the lease to restore, the property in as good condition as it was in at the time when he was put in possession, reasonable wear and tear and irresistible force excepted. The lessor cannot demand deductions or damages for ordinary gradual deterioration caused by reasonable, gentle, and customary domestic use over time.",
+    "url": "https://www.indiacode.nic.in/bitstream/123456789/2338/1/A1882-04.pdf",
+    "tags": ["wear and tear", "deterioration", "condition", "handover", "painting", "restore"]
+  },
+  {
+    "id": "BSA_SEC_61",
+    "act": "Bharatiya Sakshya Adhiniyam, 2023",
+    "section": "Section 61",
+    "title": "Admissibility of electronic records and digital payment proofs",
+    "text": "Electronic records, including bank account statements, UPI payment confirmation messages, SMS alerts, and digital communications (such as WhatsApp chats and emails) between landlord and tenant, are admissible as primary or secondary documentary evidence in legal proceedings to prove payment of security deposit, tenancy terms, notice delivery, and disputed communications.",
+    "url": "https://www.indiacode.nic.in/bitstream/123456789/20062/1/A2023-47.pdf",
+    "tags": ["proof", "bank", "upi", "electronic evidence", "whatsapp", "receipt", "payment proof", "records"]
+  },
+  {
+    "id": "RWA_BYLAWS",
+    "act": "Model Apartment Owners Association & Cooperative Housing Society Bylaws",
+    "section": "Bylaw 38",
+    "title": "Levy of penalties and bylaw infractions against occupants",
+    "text": "No penalty, fine, or disciplinary levy shall be assessed against a resident or flat occupant without serving a written show-cause notice detailing the alleged violation (such as noise, festival, or common area infractions) and issuing an official stamped society debit note and receipt upon payment. A landlord cannot deduct society penalties from a tenant's security deposit without producing the official society citation, debit receipt, and authorizing lease clause.",
+    "url": "https://nalsa.gov.in/legal-aid/",
+    "tags": ["society", "penalty", "fine", "rwa", "diwali", "noise", "festival", "association", "bylaws"]
+  }
+]

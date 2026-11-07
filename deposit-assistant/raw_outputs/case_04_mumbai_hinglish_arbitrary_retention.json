@@ -1,0 +1,65 @@
+{
+  "test_case_id": "case_04_mumbai_hinglish_arbitrary_retention",
+  "title": "Mumbai - Hinglish Messy Story with Total Withholding Without Explanation",
+  "layer_1_raw_input": "Bhai maine Andheri West Mumbai me flat khali kiya 15 September 2025 ko. Deposit 80000 diya tha online transfer se. Landlord ek rupya wapas nahi kar raha hai bol raha hai maintenance kharcha lag gaya par kitna aur kyu kuch bataya nahi. Agreement bhi tha registered. Mujhe mera pura deposit chahiye.",
+  "layer_1_redacted_input": "Bhai maine Andheri West Mumbai me flat khali kiya 15 September 2025 ko. Deposit 80000 diya tha online transfer se. Landlord ek rupya wapas nahi kar raha hai bol raha hai maintenance kharcha lag gaya par kitna aur kyu kuch bataya nahi. Agreement bhi tha registered. Mujhe mera pura deposit chahiye.",
+  "layer_1_pii_audit_log": [],
+  "layer_1_expanded_legal_query": "{\"scope\": \"residential_deposit\", \"city\": \"Mumbai\", \"state\": \"Maharashtra\", \"deposit_amount_inr\": 80000, \"amount_returned_inr\": 0, \"move_out_date\": \"15 September 2025\", \"written_agreement_exists\": \"yes\", \"payment_proof_exists\": \"yes\", \"deduction_reason\": \"unspecified maintenance charges\", \"deduction_amount_inr\": 80000, \"other_details\": [\"Flat in Andheri West\", \"Deposit paid via online transfer\", \"Zero refund given\"], \"uncertainties\": [\"Exact itemization of claimed maintenance not specified\"], \"inferred_details\": [\"Entire deposit of 80,000 arbitrarily withheld\"]}",
+  "layer_2_followup_conversation": [],
+  "layer_2_confirmed_facts": {
+    "scope": "residential_deposit",
+    "state": "Maharashtra",
+    "city": "Mumbai",
+    "suggested_state": null,
+    "deposit_amount_inr": 80000,
+    "amount_returned_inr": 0,
+    "move_out_date": "15 September 2025",
+    "written_agreement_exists": "yes",
+    "payment_proof_exists": "yes",
+    "deduction_reason": "unspecified maintenance charges",
+    "deduction_amount_inr": 80000,
+    "other_details": [
+      "Flat in Andheri West",
+      "Deposit paid via online transfer",
+      "Zero refund given"
+    ],
+    "uncertainties": [
+      "Exact itemization of claimed maintenance not specified"
+    ],
+    "inferred_details": [
+      "Entire deposit of 80,000 arbitrarily withheld"
+    ]
+  },
+  "layer_3_retrieved_statutory_chunks": [
+    {
+      "id": "MTA_SEC_11",
+      "act": "Model Tenancy Act, 2021",
+      "section": "Section 11",
+      "title": "Security deposit limit and mandatory refund timeline",
+      "similarity_score": 0.2083,
+      "url": "https://mohua.gov.in/upload/uploadfiles/files/Model_Tenancy_Act_English_2021.pdf"
+    },
+    {
+      "id": "MTA_SEC_15",
+      "act": "Model Tenancy Act, 2021",
+      "section": "Section 15",
+      "title": "Division of maintenance responsibilities and routine wear and tear",
+      "similarity_score": 0.0833,
+      "url": "https://mohua.gov.in/upload/uploadfiles/files/Model_Tenancy_Act_English_2021.pdf"
+    }
+  ],
+  "layer_4_bounded_rag_evaluation": "{\"scope\": \"residential_deposit\", \"uncertainties\": [\"Details incomplete\"]}",
+  "layer_5_citation_firewall_status": "PASSED",
+  "layer_5_telemetry": {
+    "latency_ms": 0.0,
+    "estimated_tokens": 344,
+    "estimated_cost_usd": 3.4e-05,
+    "firewall_status": "PASSED",
+    "firewall_log": [],
+    "retrieved_chunk_ids": [
+      "MTA_SEC_11",
+      "MTA_SEC_15"
+    ]
+  },
+  "layer_4_generated_demand_notice": "FORMAL NOTICE FOR REFUND OF SECURITY DEPOSIT\n\nDate: 08 November 2026\n\nTo,\nSunil Mehta\n(Landlord / Property Owner)\nProperty: Flat 801, Sea View Enclave, Andheri West, Mumbai 400058\n\nFrom,\nAditya Joshi\n(Former Tenant)\nContact: [Tenant Phone / Email]\n\nSubject: Formal Demand for Immediate Refund of Outstanding Security Deposit of ₹80,000\n\nDear Sunil Mehta,\n\nI am issuing this formal demand notice regarding the residential premises situated at:\nFlat 801, Sea View Enclave, Andheri West, Mumbai 400058.\n\n1. TENANCY PARTICULARS:\nI was residing as a tenant at the above-mentioned premises and peacefully handed over vacant possession upon moving out on 15 September 2025. The tenancy was governed by a written rental agreement executed between us.\n\n2. SECURITY DEPOSIT ACCOUNTING:\nThe payment of the security deposit of ₹80,000 was made upon commencement and is evidenced by verified transaction records / receipts.\nTo date, you have returned ₹0, leaving an unpaid deposit balance of ₹80,000.\n\n3. UNJUSTIFIED WITHHOLDING / DEDUCTIONS:\nYou have purportedly withheld/deducted ₹80,000 citing 'unspecified maintenance charges'. Please take note that under applicable law, specifically Section 11 of the Model Tenancy Act, 2021 (Security deposit limit and mandatory refund timeline); Section 15 of the Model Tenancy Act, 2021 (Division of maintenance responsibilities and routine wear and tear), a security deposit is held in trust solely to secure against tenant breach or damage beyond reasonable wear and tear. Arbitrary deductions without providing itemized repair bills, GST invoices, and prior joint inspection records are legally impermissible and constitute unjust retention of funds.\n\n4. LEGAL POSITION:\nUnder applicable Indian statutes, specifically Section 11 of the Model Tenancy Act, 2021 (Security deposit limit and mandatory refund timeline); Section 15 of the Model Tenancy Act, 2021 (Division of maintenance responsibilities and routine wear and tear), a landlord is legally required to return the security deposit promptly upon vacant handover, subject only to demonstrable, itemized actual loss beyond reasonable wear and tear. Unilateral deductions without documentary proof and verified invoices amount to breach of trust and unlawful retention of tenant funds.\n\n5. FORMAL DEMAND:\nYou are hereby called upon to refund the outstanding sum of ₹80,000 within 15 (fifteen) days from the receipt of this notice, payable to the following bank account / UPI ID:\nPayment Details: [Your Bank Name, Account Number, IFSC Code or UPI ID]\n\nIn the event of failure to refund the said sum within 15 days, I shall be constrained to initiate formal legal remedies before the competent Rent Authority, Civil Court, Consumer Disputes Redressal Commission, or approach the District Legal Services Authority (DLSA) / Lok Adalat for recovery, holding you liable for all legal expenses, damages, and statutory interest.\n\nSincerely,\n\nAditya Joshi\n(Former Tenant)\n"
+}

@@ -1,0 +1,80 @@
+[
+  {
+    "case_id": "case_01_delhi_business_losses",
+    "city": "Delhi",
+    "state": "Delhi",
+    "deduction_reason": "business losses",
+    "pii_redacted_count": 2,
+    "retrieved_sections": [
+      "Section 11",
+      "Section 15"
+    ],
+    "firewall_status": "PASSED",
+    "outstanding_balance": 40000
+  },
+  {
+    "case_id": "case_02_chandigarh_cleaning_no_agreement",
+    "city": "Chandigarh",
+    "state": "Chandigarh",
+    "deduction_reason": "deep cleaning and AC servicing",
+    "pii_redacted_count": 0,
+    "retrieved_sections": [
+      "Section 11",
+      "Section 15"
+    ],
+    "firewall_status": "PASSED",
+    "outstanding_balance": 10000
+  },
+  {
+    "case_id": "case_03_bengaluru_painting_wear_and_tear",
+    "city": "Bengaluru",
+    "state": "Karnataka",
+    "deduction_reason": "full house repainting",
+    "pii_redacted_count": 0,
+    "retrieved_sections": [
+      "Section 15",
+      "Section 108"
+    ],
+    "firewall_status": "PASSED",
+    "outstanding_balance": 30000
+  },
+  {
+    "case_id": "case_04_mumbai_hinglish_arbitrary_retention",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "deduction_reason": "unspecified maintenance charges",
+    "pii_redacted_count": 0,
+    "retrieved_sections": [
+      "Section 11",
+      "Section 15"
+    ],
+    "firewall_status": "PASSED",
+    "outstanding_balance": 80000
+  },
+  {
+    "case_id": "case_05_hyderabad_followup_loop",
+    "city": "Hyderabad",
+    "state": "Telangana",
+    "deduction_reason": "tile replacement",
+    "pii_redacted_count": 0,
+    "retrieved_sections": [
+      "Section 61",
+      "Section 11"
+    ],
+    "firewall_status": "PASSED",
+    "outstanding_balance": 45000
+  },
+  {
+    "case_id": "case_06_bangalore_water_damage_justified",
+    "city": "Bangalore",
+    "state": "Karnataka",
+    "deduction_reason": "replacing modular kitchen cabinets due to water damage from overflowing sink and pending BESCOM electricity bill",
+    "pii_redacted_count": 0,
+    "retrieved_sections": [
+      "Section 73",
+      "Section 15"
+    ],
+    "firewall_status": "PASSED",
+    "outstanding_balance": 25000
+  }
+]

@@ -1,0 +1,63 @@
+{
+  "test_case_id": "case_06_bangalore_water_damage_justified",
+  "title": "Bangalore - Justified Deductions for Admitted Water Damage (GST Invoice) & Pending BESCOM Bill",
+  "layer_1_raw_input": "I vacated my flat in Bangalore on 1st November 2026. My security deposit was Rs 1,00,000 paid online. We have a signed 11-month rental agreement. The landlord returned 75,000 but withheld 25,000. He said 20,000 is for replacing the modular kitchen cabinets which got severe water damage because I accidentally left the sink overflowing overnight, and 5,000 is for my pending BESCOM electricity bill. He sent me the official carpenter's GST invoice and the pending BESCOM meter bill on WhatsApp. I feel this is unfair, shouldn't the owner pay for his flat's repairs? Can he legally deduct this?",
+  "layer_1_redacted_input": "I vacated my flat in Bangalore on 1st November 2026. My security deposit was Rs 1,00,000 paid online. We have a signed 11-month rental agreement. The landlord returned 75,000 but withheld 25,000. He said 20,000 is for replacing the modular kitchen cabinets which got severe water damage because I accidentally left the sink overflowing overnight, and 5,000 is for my pending BESCOM electricity bill. He sent me the official carpenter's GST invoice and the pending BESCOM meter bill on WhatsApp. I feel this is unfair, shouldn't the owner pay for his flat's repairs? Can he legally deduct this?",
+  "layer_1_pii_audit_log": [],
+  "layer_1_expanded_legal_query": "{\"scope\": \"residential_deposit\", \"city\": \"Bangalore\", \"state\": \"Karnataka\", \"deposit_amount_inr\": 100000, \"amount_returned_inr\": 75000, \"move_out_date\": \"1st November 2026\", \"written_agreement_exists\": \"yes\", \"payment_proof_exists\": \"yes\", \"deduction_reason\": \"replacing modular kitchen cabinets due to water damage from overflowing sink and pending BESCOM electricity bill\", \"deduction_amount_inr\": 25000, \"other_details\": [\"Tenant accidentally left the sink overflowing overnight causing severe water damage to kitchen cabinets\", \"Landlord provided official carpenter GST invoice for 20,000\", \"Landlord provided official pending BESCOM meter bill for 5,000 via WhatsApp\"], \"uncertainties\": [], \"inferred_details\": [\"Deductions correspond to tenant-caused damage beyond wear and tear and unpaid utility consumption, supported by vendor invoices\"]}",
+  "layer_2_followup_conversation": [],
+  "layer_2_confirmed_facts": {
+    "scope": "residential_deposit",
+    "state": "Karnataka",
+    "city": "Bangalore",
+    "suggested_state": null,
+    "deposit_amount_inr": 100000,
+    "amount_returned_inr": 75000,
+    "move_out_date": "1st November 2026",
+    "written_agreement_exists": "yes",
+    "payment_proof_exists": "yes",
+    "deduction_reason": "replacing modular kitchen cabinets due to water damage from overflowing sink and pending BESCOM electricity bill",
+    "deduction_amount_inr": 25000,
+    "other_details": [
+      "Tenant accidentally left the sink overflowing overnight causing severe water damage to kitchen cabinets",
+      "Landlord provided official carpenter GST invoice for 20,000",
+      "Landlord provided official pending BESCOM meter bill for 5,000 via WhatsApp"
+    ],
+    "uncertainties": [],
+    "inferred_details": [
+      "Deductions correspond to tenant-caused damage beyond wear and tear and unpaid utility consumption, supported by vendor invoices"
+    ]
+  },
+  "layer_3_retrieved_statutory_chunks": [
+    {
+      "id": "ICA_SEC_73",
+      "act": "Indian Contract Act, 1872",
+      "section": "Section 73",
+      "title": "Compensation for loss or damage caused by breach of contract",
+      "similarity_score": 0.1781,
+      "url": "https://www.indiacode.nic.in/bitstream/123456789/2187/2/A187209.pdf"
+    },
+    {
+      "id": "MTA_SEC_15",
+      "act": "Model Tenancy Act, 2021",
+      "section": "Section 15",
+      "title": "Division of maintenance responsibilities and routine wear and tear",
+      "similarity_score": 0.1507,
+      "url": "https://mohua.gov.in/upload/uploadfiles/files/Model_Tenancy_Act_English_2021.pdf"
+    }
+  ],
+  "layer_4_bounded_rag_evaluation": "{\"scope\": \"residential_deposit\", \"uncertainties\": [\"Details incomplete\"]}",
+  "layer_5_citation_firewall_status": "PASSED",
+  "layer_5_telemetry": {
+    "latency_ms": 0.0,
+    "estimated_tokens": 458,
+    "estimated_cost_usd": 4.6e-05,
+    "firewall_status": "PASSED",
+    "firewall_log": [],
+    "retrieved_chunk_ids": [
+      "ICA_SEC_73",
+      "MTA_SEC_15"
+    ]
+  },
+  "layer_4_generated_demand_notice": "FORMAL WRITTEN ACKNOWLEDGEMENT & DEPOSIT SETTLEMENT RECORD\n\nDate: 08 November 2026\n\nTo,\nAnand Murthy\n(Landlord / Property Owner)\nProperty: Flat 304, Palm Meadows, Whitefield, Bangalore 560066\n\nFrom,\nKarthik Subramanian\n(Former Tenant)\nContact: [Tenant Phone / Email]\n\nSubject: Acknowledgement of Deposit Accounting, Receipt of Invoices, and Tenancy Discharge\n\nDear Anand Murthy,\n\nI am writing regarding the residential premises situated at:\nFlat 304, Palm Meadows, Whitefield, Bangalore 560066.\n\nI peacefully vacated and handed over possession of the premises on 1st November 2026. The tenancy was governed by a written rental agreement executed between us.\n\n1. SECURITY DEPOSIT ACCOUNTING:\nThe payment of the security deposit of ₹100,000 was made upon commencement and is evidenced by verified transaction records / receipts.\nUpon move-out inspection, the security deposit of ₹100,000 was reconciled as follows:\n- Amount Refunded to Tenant: ₹75,000\n- Withheld Deductions: ₹25,000 for replacing modular kitchen cabinets due to water damage from overflowing sink and pending BESCOM electricity bill\n\n2. RECEIPT & VERIFICATION OF VENDOR INVOICES:\nI hereby formally acknowledge receipt and inspection of the supporting documentation furnished by you, specifically the official utility electricity meter bill and official contractor/repair GST tax invoice. These documents confirm that the expenditure incurred was for actual, verifiable repairs and pending utility consumption directly attributable to the tenancy.\n\n3. STATUTORY ALIGNMENT & LEGAL POSITION:\nUnder applicable statutory principles, specifically Section 73 of the Indian Contract Act, 1872 (Compensation for loss or damage caused by breach of contract); Section 15 of the Model Tenancy Act, 2021 (Division of maintenance responsibilities and routine wear and tear), deductions from a security deposit are legally permissible when they correspond to unpaid utilities and agreed repairs supported by genuine third-party tax invoices and itemized expenditure receipts. As you have provided verifiable third-party tax invoices and payment vouchers, the deductions satisfy statutory requirements.\n\n4. FULL & FINAL SETTLEMENT & MUTUAL DISCHARGE:\nIn view of the valid documentation provided, I accept the adjusted deduction of ₹25,000 towards the said expenses. \n\nWith the refund of ₹75,000 already received, the security deposit account for the tenancy stands fully reconciled, settled, and closed. Both parties are hereby mutually discharged from any further monetary, legal, or tenancy claims in respect of the subject premises.\n\nThank you for your cooperation during the tenancy.\n\nSincerely,\n\nKarthik Subramanian\n(Former Tenant)\n"
+}

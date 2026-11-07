@@ -1,0 +1,72 @@
+{
+  "test_case_id": "case_01_delhi_business_losses",
+  "title": "Delhi - Landlord Deducts for 'Business Losses' (Delhi UT Bug & Dynamic Reason)",
+  "layer_1_raw_input": "I was renting a 2BHK flat in Saket, Delhi for 2 years (Phone: 9876543210, Aadhaar: 4321 8765 1234). I vacated on 15 January 2025. My security deposit was Rs 60,000 paid through bank transfer. We had a registered 11-month agreement. The landlord Mr. Ramesh Sharma only returned Rs 20,000 and kept Rs 40,000 claiming he suffered business losses this year and cannot afford to pay me back. How can I get my money back?",
+  "layer_1_redacted_input": "I was renting a 2BHK flat in Saket, Delhi for 2 years (Phone: <PHONE_REDACTED>, Aadhaar: <AADHAAR_REDACTED>). I vacated on 15 January 2025. My security deposit was Rs 60,000 paid through bank transfer. We had a registered 11-month agreement. The landlord Mr. Ramesh Sharma only returned Rs 20,000 and kept Rs 40,000 claiming he suffered business losses this year and cannot afford to pay me back. How can I get my money back?",
+  "layer_1_pii_audit_log": [
+    {
+      "type": "Aadhaar Card",
+      "original": "4321 **** 1234"
+    },
+    {
+      "type": "Phone Number",
+      "original": "9876***210"
+    }
+  ],
+  "layer_1_expanded_legal_query": "{\"scope\": \"residential_deposit\", \"city\": \"Delhi\", \"state\": \"Delhi\", \"deposit_amount_inr\": 60000, \"amount_returned_inr\": 20000, \"move_out_date\": \"15 January 2025\", \"written_agreement_exists\": \"yes\", \"payment_proof_exists\": \"yes\", \"deduction_reason\": \"business losses\", \"deduction_amount_inr\": 40000, \"other_details\": [\"2BHK flat in Saket\", \"Rented for 2 years\", \"Landlord name is Mr. Ramesh Sharma\"], \"uncertainties\": [], \"inferred_details\": [\"40,000 withheld unlawfully under pretext of business hardship\"]}",
+  "layer_2_followup_conversation": [],
+  "layer_2_confirmed_facts": {
+    "scope": "residential_deposit",
+    "state": "Delhi",
+    "city": "Delhi",
+    "suggested_state": null,
+    "deposit_amount_inr": 60000,
+    "amount_returned_inr": 20000,
+    "move_out_date": "15 January 2025",
+    "written_agreement_exists": "yes",
+    "payment_proof_exists": "yes",
+    "deduction_reason": "business losses",
+    "deduction_amount_inr": 40000,
+    "other_details": [
+      "2BHK flat in Saket",
+      "Rented for 2 years",
+      "Landlord name is Mr. Ramesh Sharma"
+    ],
+    "uncertainties": [],
+    "inferred_details": [
+      "40,000 withheld unlawfully under pretext of business hardship"
+    ]
+  },
+  "layer_3_retrieved_statutory_chunks": [
+    {
+      "id": "MTA_SEC_11",
+      "act": "Model Tenancy Act, 2021",
+      "section": "Section 11",
+      "title": "Security deposit limit and mandatory refund timeline",
+      "similarity_score": 0.0455,
+      "url": "https://mohua.gov.in/upload/uploadfiles/files/Model_Tenancy_Act_English_2021.pdf"
+    },
+    {
+      "id": "MTA_SEC_15",
+      "act": "Model Tenancy Act, 2021",
+      "section": "Section 15",
+      "title": "Division of maintenance responsibilities and routine wear and tear",
+      "similarity_score": 0.0455,
+      "url": "https://mohua.gov.in/upload/uploadfiles/files/Model_Tenancy_Act_English_2021.pdf"
+    }
+  ],
+  "layer_4_bounded_rag_evaluation": "{\"scope\": \"residential_deposit\", \"uncertainties\": [\"Details incomplete\"]}",
+  "layer_5_citation_firewall_status": "PASSED",
+  "layer_5_telemetry": {
+    "latency_ms": 0.0,
+    "estimated_tokens": 344,
+    "estimated_cost_usd": 3.4e-05,
+    "firewall_status": "PASSED",
+    "firewall_log": [],
+    "retrieved_chunk_ids": [
+      "MTA_SEC_11",
+      "MTA_SEC_15"
+    ]
+  },
+  "layer_4_generated_demand_notice": "FORMAL NOTICE FOR REFUND OF SECURITY DEPOSIT\n\nDate: 08 November 2026\n\nTo,\nMr. Ramesh Sharma\n(Landlord / Property Owner)\nProperty: Flat 302, Saket DDA Flats, New Delhi 110017\n\nFrom,\nRahul Verma\n(Former Tenant)\nContact: [Tenant Phone / Email]\n\nSubject: Formal Demand for Immediate Refund of Outstanding Security Deposit of ₹40,000\n\nDear Mr. Ramesh Sharma,\n\nI am issuing this formal demand notice regarding the residential premises situated at:\nFlat 302, Saket DDA Flats, New Delhi 110017.\n\n1. TENANCY PARTICULARS:\nI was residing as a tenant at the above-mentioned premises and peacefully handed over vacant possession upon moving out on 15 January 2025. The tenancy was governed by a written rental agreement executed between us.\n\n2. SECURITY DEPOSIT ACCOUNTING:\nThe payment of the security deposit of ₹60,000 was made upon commencement and is evidenced by verified transaction records / receipts.\nTo date, you have returned ₹20,000, leaving an unpaid deposit balance of ₹40,000.\n\n3. UNJUSTIFIED WITHHOLDING / DEDUCTIONS:\nYou have purportedly withheld/deducted ₹40,000 citing 'business losses'. Please take note that under applicable law, specifically Section 11 of the Model Tenancy Act, 2021 (Security deposit limit and mandatory refund timeline); Section 15 of the Model Tenancy Act, 2021 (Division of maintenance responsibilities and routine wear and tear), a security deposit is held in trust solely to secure against tenant breach or damage beyond reasonable wear and tear. Arbitrary deductions without providing itemized repair bills, GST invoices, and prior joint inspection records are legally impermissible and constitute unjust retention of funds.\n\n4. LEGAL POSITION:\nUnder applicable Indian statutes, specifically Section 11 of the Model Tenancy Act, 2021 (Security deposit limit and mandatory refund timeline); Section 15 of the Model Tenancy Act, 2021 (Division of maintenance responsibilities and routine wear and tear), a landlord is legally required to return the security deposit promptly upon vacant handover, subject only to demonstrable, itemized actual loss beyond reasonable wear and tear. Unilateral deductions without documentary proof and verified invoices amount to breach of trust and unlawful retention of tenant funds.\n\n5. FORMAL DEMAND:\nYou are hereby called upon to refund the outstanding sum of ₹40,000 within 15 (fifteen) days from the receipt of this notice, payable to the following bank account / UPI ID:\nPayment Details: [Your Bank Name, Account Number, IFSC Code or UPI ID]\n\nIn the event of failure to refund the said sum within 15 days, I shall be constrained to initiate formal legal remedies before the competent Rent Authority, Civil Court, Consumer Disputes Redressal Commission, or approach the District Legal Services Authority (DLSA) / Lok Adalat for recovery, holding you liable for all legal expenses, damages, and statutory interest.\n\nSincerely,\n\nRahul Verma\n(Former Tenant)\n"
+}
