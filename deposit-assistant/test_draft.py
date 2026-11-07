@@ -1,6 +1,7 @@
 """Tests for the Demand Letter Draft generator."""
 
 import unittest
+from typing import Any
 from models import CaseFacts
 from draft import generate_demand_letter, classify_dispute_posture
 
@@ -148,6 +149,41 @@ class DraftTests(unittest.TestCase):
         self.assertNotIn("conced", letter.lower())
         self.assertNotIn("utility", letter.lower())
         self.assertNotIn("bescom", letter.lower())
+
+    def test_hybrid_llm_posture_classification(self):
+        """When an LLM client returns structured JSON, hybrid classifier parses it."""
+        from llm_client import ModelResponse
+
+        class FakeLLMClient:
+            def __init__(self, posture_val: str) -> None:
+                self.posture_val = posture_val
+
+            def generate_json(self, prompt: str, schema: Any) -> ModelResponse:
+                return ModelResponse(text=f'{{"posture": "{self.posture_val}", "rationale": "verified invoice"}}', model="test")
+
+            def generate_text(self, prompt: str) -> ModelResponse:
+                return ModelResponse(text=f'{{"posture": "{self.posture_val}", "rationale": "verified invoice"}}', model="test")
+
+        case = CaseFacts(
+            scope="residential_deposit",
+            deduction_reason="novel custom repair with Urban Company verified receipt",
+            deduction_amount_inr=5000,
+        )
+        # Test LLM returning justified
+        res_just = classify_dispute_posture(case, client=FakeLLMClient("justified"))
+        self.assertEqual(res_just, "justified")
+
+        # Test LLM returning partial
+        res_part = classify_dispute_posture(case, client=FakeLLMClient("partial"))
+        self.assertEqual(res_part, "partial")
+
+        # Test LLM failure falls back cleanly to heuristics
+        class FailingLLMClient:
+            def generate_text(self, prompt: str) -> ModelResponse:
+                raise RuntimeError("API timeout")
+
+        res_fallback = classify_dispute_posture(case, client=FailingLLMClient())
+        self.assertIn(res_fallback, ("unjustified", "partial", "justified"))
 
 
 if __name__ == "__main__":

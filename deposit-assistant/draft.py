@@ -13,12 +13,57 @@ Conditioned on Layer 4 statutory evaluation via a Strict State Machine:
 
 from __future__ import annotations
 
+import json
 from datetime import date
 from typing import Any
 from models import CaseFacts
 
 
-def classify_dispute_posture(case: CaseFacts, evaluation_text: str = "") -> str:
+def _classify_with_llm(case: CaseFacts, client: Any) -> str | None:
+    """Uses Gemini 3.5 Flash Lite to evaluate evidence under Section 11 MTA and Section 73 ICA."""
+    facts_str = f"Landlord Stated Reason: {case.deduction_reason or 'None'}\n"
+    if case.deduction_amount_inr:
+        facts_str += f"Deduction Amount: ₹{case.deduction_amount_inr:,}\n"
+    if case.other_details:
+        facts_str += f"Reported Details: {'; '.join(case.other_details)}\n"
+
+    prompt = f"""You are a specialized legal classification model for Indian residential rental deposit disputes.
+Evaluate the following case facts under Section 11 of the Model Tenancy Act, 2021 and Section 73 of the Indian Contract Act, 1872.
+
+STRICT CLASSIFICATION CRITERIA:
+1. "justified" (100% Proven):
+   - The landlord has furnished verified third-party documentation (such as official contractor GST tax invoices, official company receipts, or utility meter bills) for admitted tenant-caused damage or actual utility arrears.
+   - ZERO arbitrary, personal (e.g. business losses), or routine wear-and-tear deductions are claimed.
+
+2. "partial" (Mixed Evidence):
+   - Part of the deduction is backed by genuine third-party receipts/bills, but another part is arbitrary, personal, or unsubstantiated.
+
+3. "unjustified" (0% Proven):
+   - The landlord provided zero third-party receipts, GST invoices, or utility bills.
+   - Or the deduction is for routine wear-and-tear (e.g. repainting without GST bills), or unrelated personal hardship (e.g. business losses, wedding expenses, personal loans).
+
+Case Facts:
+{facts_str}
+
+Return strictly a JSON object with this format:
+{{"posture": "justified" | "partial" | "unjustified", "rationale": "one-sentence explanation"}}
+"""
+    if callable(getattr(client, "generate_json", None)):
+        resp = client.generate_json(prompt, {"type": "object"}).text.strip()
+    else:
+        resp = client.generate_text(prompt).text.strip()
+
+    if resp.startswith("```") and resp.endswith("```"):
+        resp = "\n".join(resp.splitlines()[1:-1]).strip()
+
+    data = json.loads(resp)
+    posture = str(data.get("posture", "")).strip().lower()
+    if posture in ("justified", "partial", "unjustified"):
+        return posture
+    return None
+
+
+def _classify_posture_heuristics(case: CaseFacts, evaluation_text: str = "") -> str:
     """Strict State Machine classifying dispute posture into 'unjustified', 'justified', or 'partial'.
 
     Routing is based strictly on the proportion of proven vs unproven deductions:
@@ -102,6 +147,25 @@ def classify_dispute_posture(case: CaseFacts, evaluation_text: str = "") -> str:
     # State 3: 0% Proven -> 'unjustified'
     # No verified proof, or pure arbitrary deductions (business losses, wear & tear painting, etc.)
     return "unjustified"
+
+
+def classify_dispute_posture(
+    case: CaseFacts, evaluation_text: str = "", client: Any | None = None
+) -> str:
+    """Hybrid Classifier: Uses Gemini 3.5 Flash Lite if an active LLM client is available
+
+    to semantically evaluate the case facts, with an instant deterministic heuristic
+    state machine fallback.
+    """
+    if client is not None:
+        try:
+            llm_result = _classify_with_llm(case, client)
+            if llm_result in ("justified", "partial", "unjustified"):
+                return llm_result
+        except Exception:
+            pass  # Seamless fallback to heuristic state machine
+
+    return _classify_posture_heuristics(case, evaluation_text)
 
 
 def _extract_verified_expenses_summary(case: CaseFacts) -> str:

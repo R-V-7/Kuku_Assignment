@@ -117,9 +117,16 @@ class DisputeEngine:
         return guidance_for(case, topic, evaluation_text=evaluation_text, posture=posture)
 
     @staticmethod
-    def classify_dispute_posture(case: CaseFacts, evaluation_text: str = "") -> str:
-        """Classifies dispute posture into 'justified', 'partial', or 'unjustified'."""
-        return classify_dispute_posture(case, evaluation_text)
+    def classify_dispute_posture(
+        case: CaseFacts, evaluation_text: str = "", client: ModelClient | None = None
+    ) -> str:
+        """Classifies dispute posture into 'justified', 'partial', or 'unjustified' using hybrid LLM + heuristic."""
+        if client is None:
+            try:
+                client = create_client()
+            except Exception:
+                client = None
+        return classify_dispute_posture(case, evaluation_text, client=client)
 
     @staticmethod
     def draft_demand_letter(
