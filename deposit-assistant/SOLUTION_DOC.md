@@ -3,7 +3,7 @@
 
 **Candidate:** AI Generalist Candidate  
 **Problem Selected:** Problem 2 — Build an AI Lawyer (Residential Rental Security Deposit Recovery in India)  
-**Deliverables:** Working Streamlit Prototype, 52 Automated Unit Tests, 6 Unedited Raw Output Runs, 2-Page Solution Doc  
+**Deliverables:** Working Streamlit Prototype, 58 Automated Unit Tests, 6 Unedited Raw Output Runs, 2-Page Solution Doc  
 
 ---
 
@@ -127,6 +127,8 @@ We eliminated both failures by implementing a **Strict 3-State Finite State Mach
 #### Product Innovations Beyond Generic Legal Assistants
 1. **Evidence Strength & Win-Probability Meter (`evidence_meter.py`):** Rather than offering static advice, the system computes a dynamic 0–100% evidentiary leverage score based on statutory thresholds (admissible electronic banking records under BSA 2023 §61, signed lease binding terms under ICA 1872 §10, and landlord expenditure proof under MTA 2021 §11), complete with an itemized leverage audit and actionable steps to increase legal probability.
 2. **Adversarial Landlord Pushback Simulator (`simulator.py`):** Transforms the assistant from a passive document generator into an active negotiation copilot. It predicts the 3 most common adversarial counter-arguments Indian landlords employ (*"Court takes 10 years"*, *"Notice period penalty forfeiture"*, and unproven repair charges) and equips the tenant with concise, copy-pasteable 2-line WhatsApp rebuttals citing MTA §11 summary 60-day Rent Authority disposal, Section 74 ICA penalty bans, and DLSA Lok Adalat pre-litigation.
+3. **Dispute Resolution Expected Value (EV) & Forum Advisor (`litigation_roi.py`):** Prevents financially self-destructive litigation by mapping disputed amounts against forum economics. For micro-claims (<₹15,000), it warns against private advocate fees and directs tenants to ₹0 NALSA/DLSA Pre-Litigation Lok Adalats; for mid-claims (₹15,000–₹60,000), it leverages self-filed e-Daakhil Consumer Commissions (zero court fees under ₹5 Lakhs); for large deposits (>₹60,000), it computes statutory interest (@ 8% p.a. under the Interest Act, 1978) claimable before Rent Courts / Order 37 CPC Summary Suits.
+4. **One-Click e-Daakhil / DLSA Court Dossier Compiler (`dossier.py`):** Compiles a complete, court-ready formal complaint petition bundle (.md) containing a chronological List of Dates & Events, Statutory Grounds, Prayer for Refund & Interest, and an Index of Annexures checklist for immediate filing if the 15-day notice is ignored.
 
 ---
 
@@ -142,5 +144,5 @@ An honest AI solution understands its limitations:
 
 ### 6. Verification, Telemetry & Real-World Economics
 
-- **52 Automated Unit Tests (100% Pass Rate in <0.05s):** `test_rag.py`, `test_engine.py`, `test_draft.py`, `test_guidance.py`, `test_followup.py`, `test_intake.py`, `test_evidence_meter.py`, `test_simulator.py` verify PII redaction, vector retrieval, citation firewall interception, UT / Indian state auto-mapping, strict follow-up state machine question routing (preventing field overwrite bugs), uncertainty auto-pruning, automatic returned amount calculation, statutory evidence leverage scoring, adversarial pushback simulation, anti-hallucination concession guards, objective 3-state machine routing (settlement vs demand across guidance and drafting), and hybrid LLM generation with zero-latency deterministic fallbacks across classification, guidance, and pushback roleplay.
+- **58 Automated Unit Tests (100% Pass Rate in <0.05s):** `test_rag.py`, `test_engine.py`, `test_draft.py`, `test_guidance.py`, `test_followup.py`, `test_intake.py`, `test_evidence_meter.py`, `test_simulator.py`, `test_litigation_roi.py`, `test_dossier.py` verify PII redaction, vector retrieval, citation firewall interception, UT / Indian state auto-mapping, strict follow-up state machine question routing (preventing field overwrite bugs), uncertainty auto-pruning, automatic returned amount calculation, statutory evidence leverage scoring, adversarial pushback simulation, dispute resolution ROI forum matrix calculation, court petition dossier compilation, anti-hallucination concession guards, objective 3-state machine routing (settlement vs demand across guidance and drafting), and hybrid LLM generation with zero-latency deterministic fallbacks across classification, guidance, and pushback roleplay.
 - **Micro-RAG Economics:** At ~1,200 tokens per interaction using `gemini-3.5-flash-lite` and `text-embedding-004`, end-to-end triage costs less than **$0.00015 USD (~₹0.012 INR)** per case with sub-second execution latency, making nationwide legal empowerment viable at near-zero marginal cost.

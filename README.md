@@ -1,6 +1,6 @@
 # Kuku AI Generalist Assignment — Problem 2: Deposit Dispute Assistant
 
-[![Tests](https://img.shields.io/badge/Unit%20Tests-52%20Passed-brightgreen)](deposit-assistant/SOLUTION_DOC.md)
+[![Tests](https://img.shields.io/badge/Unit%20Tests-58%20Passed-brightgreen)](deposit-assistant/SOLUTION_DOC.md)
 [![Architecture](https://img.shields.io/badge/Architecture-5--Layer%20Micro--RAG-blue)](deposit-assistant/SOLUTION_DOC.md)
 [![Citation Firewall](https://img.shields.io/badge/Guardrails-AST%20Citation%20Firewall-orange)](deposit-assistant/SOLUTION_DOC.md)
 
@@ -26,6 +26,8 @@ Built with a **zero-external-database Micro-RAG architecture** (`gemini-3.5-flas
     ├── drafter.py                          # Alias module for draft.py
     ├── evidence_meter.py                   # Evidence Strength & Win-Probability Meter (BSA §61 & ICA §10)
     ├── simulator.py                        # Landlord Pushback Simulator & WhatsApp Rebuttals
+    ├── litigation_roi.py                   # Dispute Resolution EV & Forum Advisor (NALSA/e-Daakhil)
+    ├── dossier.py                          # One-Click Court Dossier & Complaint Petition Compiler
     ├── statutes.json                       # Verified Indian statutory knowledge base
     ├── rag/                                # Micro-RAG pipeline
     │   ├── redactor.py                     # Layer 1: PII Redaction (Aadhaar, PAN, phone)
@@ -36,7 +38,7 @@ Built with a **zero-external-database Micro-RAG architecture** (`gemini-3.5-flas
     ├── raw_outputs/                        # 6 unedited case outputs (JSON + legal notices)
     ├── SOLUTION_DOC.md                     # Comprehensive 2-page system architecture documentation
     ├── WALKTHROUGH_SCRIPT.md               # 2-minute Loom/video demonstration script
-    └── test_*.py                           # 52 automated unit tests across 8 test suites
+    └── test_*.py                           # 58 automated unit tests across 10 test suites
 ```
 
 ---
@@ -66,7 +68,7 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-### 4. Running the Test Suite (52 Unit Tests)
+### 4. Running the Test Suite (58 Unit Tests)
 ```bash
 python -m unittest discover -v
 ```

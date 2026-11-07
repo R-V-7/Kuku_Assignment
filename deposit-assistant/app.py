@@ -686,10 +686,12 @@ if confirmed_case is not None:
             for tip in ev_data["actionable_tips"]:
                 st.markdown(f"  - {tip}")
 
-    tab_rag, tab_draft, tab_pushback, tab_telemetry = st.tabs([
+    tab_rag, tab_draft, tab_pushback, tab_roi, tab_dossier, tab_telemetry = st.tabs([
         "⚖️ Bounded Statutory Guidance (Micro-RAG)",
-        "📝 Demand Letter Draft",
+        "📝 Demand Letter / Settlement Draft",
         "🥊 Landlord Pushback Simulator & WhatsApp Rebuttals",
+        "📊 Dispute Resolution & Litigation ROI",
+        "📦 e-Daakhil / DLSA Court Dossier",
         "🛡️ System Telemetry & Guardrail Log",
     ])
 
@@ -874,7 +876,7 @@ if confirmed_case is not None:
         )
 
         pushback_list = DisputeEngine.simulate_landlord_pushback(
-            confirmed_case, posture=selected_posture
+            confirmed_case, posture=selected_posture, client=st.session_state.gemini_client
         )
 
         for i, pb in enumerate(pushback_list):
@@ -895,6 +897,94 @@ if confirmed_case is not None:
                         label_visibility="collapsed",
                     )
                 st.markdown("---")
+
+    # ==============================================================================
+    # TAB 4: DISPUTE RESOLUTION EXPECTED VALUE (EV) & LITIGATION ROI (PRODUCT INNOVATION #3)
+    # ==============================================================================
+    with tab_roi:
+        st.subheader("📊 Dispute Resolution Expected Value (EV) & Forum Advisor")
+        st.caption(
+            "Economic feasibility analysis: Compares recovery probability, forum court fees, timeline, "
+            "and statutory interest across Indian dispute resolution mechanisms."
+        )
+
+        roi_info = DisputeEngine.calculate_litigation_roi(confirmed_case, posture=selected_posture)
+
+        r_col1, r_col2, r_col3, r_col4 = st.columns(4)
+        r_col1.metric("Withheld Principal", f"₹{roi_info['disputed_amount_inr']:,}")
+        r_col2.metric(
+            f"Statutory Interest ({roi_info.get('statutory_rate_pct', 8.0)}% p.a.)",
+            f"₹{roi_info['statutory_interest_inr']:,}",
+            help="Accrued under Interest Act, 1978 for delay exceeding 30-day statutory refund period.",
+        )
+        r_col3.metric("Total Legally Claimable", f"₹{roi_info['total_claimable_inr']:,}")
+        r_col4.metric("Court Fee", roi_info["court_fee_display"])
+
+        if roi_info["roi_tier"] == "NOT_RECOMMENDED":
+            st.warning(f"⚖️ **Litigation Feasibility:** {roi_info['summary']}")
+        elif roi_info["roi_tier"] == "ZERO_COST_ESCALATION":
+            st.success(f"⚖️ **Optimal Strategy:** {roi_info['summary']}")
+        else:
+            st.info(f"⚖️ **Optimal Strategy:** {roi_info['summary']}")
+
+        col_roi_left, col_roi_right = st.columns([1, 1])
+        with col_roi_left:
+            st.markdown(f"##### 🏛️ Recommended Forum: **{roi_info['recommended_forum']}**")
+            st.write(f"- **Authority:** `{roi_info['forum_authority']}`")
+            st.write(f"- **Advocate Advisory:** {roi_info['lawyer_fee_advice']}")
+            st.write(f"- **Expected Timeline:** `{roi_info['estimated_duration']}`")
+            st.write(f"- **Net Projected Recovery:** `{roi_info['expected_net_recovery']}`")
+
+        with col_roi_right:
+            st.markdown("##### 🧭 Statutory Escalation Ladder (Indian Dispute Forums)")
+            for stage in roi_info.get("forum_matrix", []):
+                status_badge = "🌟 **RECOMMENDED**" if stage.get("status") == "RECOMMENDED" else ("▶️ **ACTIVE STEP**" if stage.get("status") == "ACTIVE_STEP" else "🔹 Available")
+                st.markdown(
+                    f"- **{stage['forum']}** — {status_badge}  \n"
+                    f"  *Cost:* `{stage['cost']}` · *Court Fee:* `{stage['court_fee']}` · *Timeline:* `{stage['duration']}`  \n"
+                    f"  *{stage['suitability']}*"
+                )
+
+    # ==============================================================================
+    # TAB 5: ONE-CLICK COURT DOSSIER & FILING PACKET (PRODUCT INNOVATION #5)
+    # ==============================================================================
+    with tab_dossier:
+        st.subheader("📦 e-Daakhil / DLSA Pre-Litigation Court Dossier Compiler")
+        st.caption(
+            "Court-ready formal petition bundle: Formatted specifically for filing before the District Consumer Commission "
+            "(e-Daakhil) or District Legal Services Authority (DLSA) Pre-Litigation Lok Adalat."
+        )
+
+        dossier_text = DisputeEngine.compile_court_dossier(confirmed_case, posture=selected_posture)
+
+        dossier_file_name = (
+            "Tenancy_Mutual_Settlement_Discharge_Dossier.md"
+            if selected_posture == "justified"
+            else "eDaakhil_DLSA_PreLitigation_Court_Dossier.md"
+        )
+
+        col_dos1, col_dos2 = st.columns([1, 3])
+        with col_dos1:
+            st.download_button(
+                label="📦 Download Complete Court Dossier (.md)",
+                data=dossier_text,
+                file_name=dossier_file_name,
+                mime="text/markdown",
+                use_container_width=True,
+            )
+        with col_dos2:
+            st.info("💡 Attach this compiled dossier alongside your certified bank statements on the e-Daakhil portal or submit to your local DLSA secretary.")
+
+        st.markdown("##### 📑 Court Dossier Preview & List of Dates")
+        with st.expander("📄 View Full Court Filing Packet (Synopsis, Statutory Grounds, Prayer & Verification)", expanded=True):
+            st.markdown(dossier_text)
+
+        st.markdown("##### ✅ Index of Annexures & Evidence Checklist")
+        st.checkbox("Annexure C-1: Signed Tenancy Agreement (or statement of oral lease terms)", value=(confirmed_case.written_agreement_exists == "yes"))
+        st.checkbox("Annexure C-2: Bank / UPI Statement of Deposit Remittance (BSA 2023 §61)", value=(confirmed_case.payment_proof_exists == "yes"))
+        st.checkbox("Annexure C-3: Peaceful Key Handover & Move-Out Proof (TPA 1882 §108)", value=bool(confirmed_case.move_out_date))
+        st.checkbox("Annexure C-4: Copy of 15-Day Statutory Legal Demand Notice", value=True)
+        st.checkbox("Annexure C-5: Proof of Service (Postal Speed Post AD Tracking / WhatsApp Delivery Screenshot)", value=True)
 
     with tab_telemetry:
         st.subheader("🛡️ Layer 5: Post-Generation AST Citation Firewall & Telemetry Log")

@@ -24,6 +24,8 @@ from guidance import guidance_for, get_guidance_topics, SOURCES
 from draft import generate_demand_letter, classify_dispute_posture
 from evidence_meter import calculate_evidence_strength
 from simulator import simulate_pushbacks
+from litigation_roi import calculate_litigation_roi
+from dossier import compile_court_dossier
 from llm_client import ModelClient, ModelError, create_client
 from rag import (
     redact_pii,
@@ -176,6 +178,20 @@ class DisputeEngine:
                 client = None
         return simulate_pushbacks(case, posture=posture, client=client)
 
+    @staticmethod
+    def calculate_litigation_roi(
+        case: CaseFacts, posture: str | None = None
+    ) -> dict[str, Any]:
+        """Calculates expected litigation costs, duration, optimal Indian legal forum, and statutory interest."""
+        return calculate_litigation_roi(case, posture=posture)
+
+    @staticmethod
+    def compile_court_dossier(
+        case: CaseFacts, posture: str | None = None
+    ) -> str:
+        """Compiles a complete court filing packet (e-Daakhil / DLSA dossier or mutual settlement discharge)."""
+        return compile_court_dossier(case, posture=posture)
+
 
 __all__ = [
     "CaseFacts",
@@ -196,6 +212,8 @@ __all__ = [
     "classify_dispute_posture",
     "calculate_evidence_strength",
     "simulate_pushbacks",
+    "calculate_litigation_roi",
+    "compile_court_dossier",
     "DisputeEngine",
     "redact_pii",
     "expand_legal_query",
