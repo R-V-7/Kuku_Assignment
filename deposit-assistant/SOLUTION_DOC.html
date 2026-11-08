@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kuku Assignment - Solution Document: Problem 2 (AI Lawyer)</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm 8mm 10mm;
+  }
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1a202c;
+    background: #fff;
+    margin: 0;
+    padding: 0;
+    font-size: 8.4pt;
+    line-height: 1.28;
+  }
+  .page {
+    width: 100%;
+    min-height: 275mm;
+    page-break-after: always;
+    break-after: page;
+    position: relative;
+    padding-bottom: 2mm;
+  }
+  .page:last-child {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+  .header-block {
+    border-bottom: 2px solid #2b6cb0;
+    padding-bottom: 3px;
+    margin-bottom: 5px;
+  }
+  h1 {
+    font-size: 13pt;
+    margin: 0 0 1px 0;
+    color: #1a365d;
+    letter-spacing: -0.3px;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+  .subtitle {
+    font-size: 9pt;
+    color: #2b6cb0;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+  .meta-grid {
+    display: flex;
+    justify-content: space-between;
+    background: #edf2f7;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 7.6pt;
+    font-weight: 600;
+    color: #2d3748;
+  }
+  .meta-grid a {
+    color: #2b6cb0;
+    text-decoration: none;
+  }
+  h2 {
+    font-size: 9.2pt;
+    color: #1a365d;
+    margin: 5px 0 2px 0;
+    border-bottom: 1px solid #cbd5e0;
+    padding-bottom: 1px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+  }
+  p {
+    margin: 2px 0;
+    text-align: justify;
+  }
+  ul {
+    margin: 2px 0 3px 14px;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 1.5px;
+  }
+  strong {
+    color: #0f172a;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 3px 0 5px 0;
+    font-size: 7.6pt;
+  }
+  th, td {
+    border: 1px solid #cbd5e0;
+    padding: 2.5px 4.5px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #ebf8ff;
+    color: #2b6cb0;
+    font-weight: 700;
+  }
+  tr:nth-child(even) td {
+    background-color: #f7fafc;
+  }
+  .callout-box {
+    background-color: #fffaf0;
+    border-left: 3px solid #dd6b20;
+    padding: 3px 6px;
+    margin: 3px 0;
+    border-radius: 2px;
+  }
+  .callout-success {
+    background-color: #f0fff4;
+    border-left: 3px solid #38a169;
+    padding: 3px 6px;
+    margin: 3px 0;
+    border-radius: 2px;
+  }
+  .badge {
+    display: inline-block;
+    padding: 1px 4px;
+    font-size: 6.8pt;
+    font-weight: 700;
+    border-radius: 2px;
+    background: #e2e8f0;
+    color: #2d3748;
+  }
+  .badge-blue { background: #ebf8ff; color: #2b6cb0; }
+  .badge-green { background: #f0fff4; color: #276749; }
+  .badge-purple { background: #faf5ff; color: #6b46c1; }
+  .footer-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 7pt;
+    color: #718096;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 2px;
+  }
+  .quote-err {
+    font-style: italic;
+    color: #9b2c2c;
+    background: #fff5f5;
+    padding: 1.5px 4px;
+    border-radius: 2px;
+    font-size: 7.8pt;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================================= PAGE 1 ================================= -->
+<div class="page">
+  <div class="header-block">
+    <h1>Kuku AI Generalist Assignment &bull; Problem 2: Build an AI Lawyer</h1>
+    <div class="subtitle">Deposit Dispute Assistant: A 5-Layer Micro-RAG Legal Assistant for Indian Tenants</div>
+    <div class="meta-grid">
+      <span><strong>Candidate:</strong> [Your Name] | [Your Roll No] | [Your Branch]</span>
+      <span><strong>Repo:</strong> <a href="https://github.com/R-V-7/Kuku_Assignment">github.com/R-V-7/Kuku_Assignment</a></span>
+      <span><strong>Deliverables:</strong> App Prototype &bull; 58 Tests &bull; 6 Raw Runs &bull; 2-Page Doc &bull; Walkthrough</span>
+    </div>
+  </div>
+
+  <h2>1. Problem Choice, Framing &amp; Strategic Boundaries</h2>
+  <p>
+    <strong>Why Rental Deposit Recovery?</strong> Over <strong>70 million urban households</strong> in India rent their homes. Unlawful security deposit withholding is India's #1 urban consumer grievance. Landlords routinely withhold &#8377;20,000&#8211;&#8377;1,00,000 using arbitrary pretexts (<em>"painting"</em>, <em>"cleaning"</em>, or <em>"business losses"</em>). While strong tenant protection exists under the <em>Model Tenancy Act, 2021</em> and <em>Indian Contract Act, 1872</em>, hiring an advocate requires a &#8377;15,000&#8211;&#8377;50,000 retainer&mdash;making private representation economically irrational for deposits under &#8377;1 Lakh. Tenants face immense intimidation and surrender their money.
+  </p>
+  <p>
+    <strong>Scope &amp; Explicit Boundaries:</strong>
+    <em>In-Scope:</em> Residential rental deposit disputes across all 28 Indian States &amp; UTs (with auto-normalization for Delhi/Chandigarh). Covers PII redaction, conversational intake, dense query expansion, statutory vector retrieval, bounded evaluation, objective drafting (demand notice vs. settlement), WhatsApp pushback rebuttals, litigation ROI, and court dossier compilation.
+    <em>Out-of-Scope:</em> Commercial property leases, active court evictions, and criminal fraud/forgery (which require police FIRs and forensic audit).
+  </p>
+  <p>
+    <strong>Sensible Assumptions Made:</strong>
+    <strong>(1)</strong> Most urban tenants transfer deposits via UPI/NEFT, establishing admissible primary electronic evidence under Section 61 of the <em>Bharatiya Sakshya Adhiniyam, 2023 (BSA)</em> even if written agreements are missing.
+    <strong>(2)</strong> Domestic wear-and-tear is a landlord maintenance obligation under Section 11 MTA; deductions require genuine third-party contractor GST invoices.
+    <strong>(3)</strong> Tenants routinely paste sensitive documents; client-side PII regex masking (Aadhaar, PAN, phone) is mandatory before LLM calls.
+  </p>
+
+  <h2>2. 5-Layer Micro-RAG Architecture &amp; Division of Labor</h2>
+  <p>
+    To eliminate heavy infrastructure hurdles while guaranteeing zero hallucinations, we built a <strong>zero-external-database Micro-RAG pipeline</strong> running entirely in-memory with NumPy cosine similarity:
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Pipeline Layer</th>
+        <th style="width: 38%;">Handled by AI (<span class="badge badge-purple">gemini-3.5-flash-lite</span>)</th>
+        <th style="width: 37%;">Handled by Deterministic Code / Guardrails</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Layer 1: Pre-Ingestion Guardrails &amp; Fact Intake</strong></td>
+        <td>Extracts 9 structured fields from messy English/Hindi/Hinglish intake; dense statutory query expansion.</td>
+        <td><strong>Regex PII Redactor:</strong> Masks Aadhaar, PAN, phone, email before API calls. Pydantic tri-state logic (<code>yes</code>/<code>no</code>/<code>unknown</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>Layer 2: Human-in-the-Loop Clarification State</strong></td>
+        <td>Conversational understanding of natural language clarification replies.</td>
+        <td><strong>Clarification State Machine:</strong> Tracks missing fields, never asks twice. <strong>UT Resolver:</strong> Auto-maps Delhi/UTs; clears uncertainties.</td>
+      </tr>
+      <tr>
+        <td><strong>Layer 3: Frictionless In-Memory Vector RAG</strong></td>
+        <td>Vector embeddings via <code>text-embedding-004</code> (offline BM25 fallback).</td>
+        <td><strong>NumPy Vector Store:</strong> Cosine similarity search over verified <code>statutes.json</code> (ICA &sect;73, MTA &sect;11, BSA &sect;61). Zero DB overhead.</td>
+      </tr>
+      <tr>
+        <td><strong>Layer 4: Bounded Synthesis &amp; Posture Routing</strong></td>
+        <td>Statutory summarization bounded strictly to retrieved <code>&lt;context&gt;</code> clauses; pushback roleplay.</td>
+        <td><strong>3-State Machine:</strong> Classifies case as <em>Unjustified</em> (demand notice), <em>Justified</em> (discharge record), or <em>Partial</em> based on verified bills.</td>
+      </tr>
+      <tr>
+        <td><strong>Layer 5: Post-Generation AST Citation Firewall</strong></td>
+        <td><em>Zero trust granted to raw generative model output.</em></td>
+        <td><strong>AST Citation Firewall:</strong> Scans citations via regex, checks whitelist, intercepts unverified statutes, logs latency/cost telemetry.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. Key Product &amp; AI Innovations (Beyond Generic Legal Chatbots)</h2>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px;">
+    <div class="callout-success">
+      <strong>1. Evidence Strength &amp; Win-Probability Meter (<span class="badge badge-green">evidence_meter.py</span>)</strong><br>
+      Computes a dynamic 0&#8211;100% case recovery score under Indian evidence law: <code>+25%</code> for electronic bank trail (BSA &sect;61), <code>+20%</code> for signed lease (ICA &sect;10), and <code>+10%</code> for move-out date (TPA &sect;108). If landlord produced valid contractor GST invoices, the score drops to <strong>15% (Claim Unviable)</strong>, actively warning against futile litigation.
+    </div>
+    <div class="callout-success">
+      <strong>2. Landlord Pushback Simulator &amp; WhatsApp Rebuttals (<span class="badge badge-green">simulator.py</span>)</strong><br>
+      Solves the real-world question: <em>"What do I do 10 minutes after sending the notice when the landlord pushes back?"</em> Simulates the top 3 Indian landlord excuses (*"Court takes 10 years"*, *"Notice forfeiture"*, arbitrary repairs) and provides 1-click copyable 2-line WhatsApp rebuttals citing MTA &sect;11, ICA &sect;74, and DLSA Lok Adalat.
+    </div>
+    <div class="callout-box">
+      <strong>3. Litigation ROI &amp; Forum Advisor (<span class="badge badge-blue">litigation_roi.py</span>)</strong><br>
+      Prevents self-destructive litigation: warns against private lawyers for micro-claims (&lt;&#8377;15k), steering users to <strong>&#8377;0 DLSA Pre-Litigation Lok Adalat</strong>; recommends <strong>e-Daakhil Consumer Commission</strong> (&#8377;0 court fee under &#8377;5L); calculates <strong>8% p.a. statutory interest</strong> (<em>Interest Act, 1978</em>) for claims &gt;&#8377;60k.
+    </div>
+    <div class="callout-box">
+      <strong>4. One-Click e-Daakhil / DLSA Court Dossier (<span class="badge badge-blue">dossier.py</span>)</strong><br>
+      When notices are ignored, 1-click compiles a complete, court-ready complaint petition (.md): Synopsis &amp; Chronological List of Dates, Statutory Grounds (ICA &sect;73, MTA &sect;11, BSA &sect;61), Prayer for Refund + Interest, Verification, and an interactive Index of Annexures checklist.
+    </div>
+  </div>
+
+  <div class="footer-text">
+    <span>Kuku AI Generalist Assignment &bull; Problem 2: Build an AI Lawyer</span>
+    <span>Page 1 of 2</span>
+  </div>
+</div>
+
+<!-- ================================= PAGE 2 ================================= -->
+<div class="page">
+  <div class="header-block" style="border-bottom: 1px solid #cbd5e0;">
+    <div class="meta-grid" style="margin-bottom: 2px;">
+      <span><strong>Problem 2 Solution Document (Continued)</strong> &bull; Deposit Dispute Assistant</span>
+      <span><strong>Live Prototype:</strong> Streamlit Community Cloud / Local CLI</span>
+      <span><strong>Test Suite:</strong> 58 Unit Tests (100% Pass)</span>
+    </div>
+  </div>
+
+  <h2>4. Tools Used &amp; Real-World Failure Analysis (Mandatory Brief Requirement)</h2>
+  <p>
+    <strong>Tools Used:</strong> <code>gemini-3.5-flash-lite</code>, <code>text-embedding-004</code>, Claude, Google GenAI SDK, Pydantic, Streamlit, NumPy.
+  </p>
+  <div class="callout-box" style="margin: 3px 0;">
+    <strong>Where the AI Got It Wrong (Real Run Failure Analysis):</strong><br>
+    During testing of our Micro-RAG pipeline with <code>gemini-3.5-flash-lite</code>, the model committed a classic, dangerous legal AI hallucination: <strong>it escalated a routine civil rental contract dispute into a criminal offense</strong>, generating the following text:
+    <div class="quote-err" style="margin: 2px 0;">
+      "...withholding the security deposit constitutes unjust enrichment and criminal breach of trust under Section 405 of the Indian Penal Code (IPC) / BNS."
+    </div>
+    Even with strict prompt tags, <code>Section 405 IPC</code> was hallucinated from parametric memory (it did not exist in our retrieved <code>statutes.json</code> chunks). In Indian tenancy practice, framing a deposit refund dispute as a criminal offense is a fatal defect: civil courts and consumer commissions routinely reject criminalized rental petitions with strictures.
+  </div>
+  <p>
+    <strong>How Our Architecture Solved It:</strong> This real-world failure demonstrated that <em>prompt engineering alone cannot guarantee legal safety</em>. It necessitated our <strong>Layer 5 AST Citation Firewall</strong>:
+  </p>
+  <ul>
+    <li><strong>Regex Statutory Backstop:</strong> Scans generated text for statutory and criminal patterns (<code>Section \d+</code>, <code>Article \d+</code>, <code>IPC</code>, <code>BNS</code>, <code>criminal breach</code>).</li>
+    <li><strong>Deterministic Whitelist Enforcement:</strong> Matches detected citations against the exact retrieved chunk IDs in Layer 3. Because <code>Section 405 IPC</code> was not in the whitelist, the firewall physically intercepted the unverified criminal charge, replaced it with verified civil grounding under <strong>Section 73 of the Indian Contract Act, 1872</strong>, and logged the intervention in the telemetry dashboard.</li>
+  </ul>
+  <p>
+    <strong>Eliminating "Blind Advocacy" &amp; "Concession Hallucinations":</strong> Generic legal AI blindly advocates for the user&mdash;generating aggressive legal demands even when a tenant admitted causing water damage and the landlord provided genuine contractor GST tax invoices. Conversely, loose keyword matching previously tricked models into conceding "utility bills" in cases where the landlord produced zero receipts. We solved this with a <strong>Strict 3-State Finite State Machine (<code>draft.py</code> &amp; <code>guidance.py</code>)</strong>:
+  </p>
+  <ul>
+    <li><strong>1. Unjustified (0% Proven):</strong> Arbitrary withholding (e.g. business losses, normal wear painting). Routes to a <strong>15-Day Demand Notice</strong> for 100% refund with <em>strictly zero concession language</em>.</li>
+    <li><strong>2. Fully Justified (100% Proven):** Landlord provided verified contractor GST invoices and meter bills. Routes to a **Mutual Tenancy Discharge &amp; Settlement Record**; advises against wasteful litigation.</li>
+    <li><strong>3. Partially Justified (Mixed Evidence):</strong> Legitimate expenses are documented, but balance is arbitrary. Concedes <em>only the verified invoices</em> and demands the remaining unproven balance.</li>
+  </ul>
+
+  <h2>5. Honest Failure Modes &amp; When Someone Needs a Real Lawyer</h2>
+  <p>An honest AI lawyer knows its exact boundaries and tells the user when human legal representation is mandatory:</p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Failure Mode / Boundary</th>
+        <th style="width: 35%;">System Limitation</th>
+        <th style="width: 40%;">System Safeguard &amp; User Advisory</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Counterfeit / Forged Landlord Invoices</strong></td>
+        <td>The assistant cannot verify GST portal filings or perform forensic handwriting/receipt fraud analysis.</td>
+        <td>Flags suspicious receipts; advises tenant to challenge authenticity via Section 65B affidavit before the District Consumer Commission.</td>
+      </tr>
+      <tr>
+        <td><strong>Cash Deposits &amp; Oral Leases</strong></td>
+        <td>When <code>written_agreement == "no"</code> and <code>payment_proof == "no"</code>, electronic records under BSA &sect;61 are absent.</td>
+        <td>Informs user that civil claims require documentary custody proof; steers case to informal pre-litigation conciliation via DLSA Lok Adalat.</td>
+      </tr>
+      <tr>
+        <td><strong>Active Evictions &amp; Physical Intimidation</strong></td>
+        <td>Disputes involving lockouts, utility cut-offs, or criminal threats cannot be solved via a 15-day demand notice.</td>
+        <td>Detects scope mismatch; advises tenant to file a police complaint and consult a human advocate immediately for an interim civil injunction.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>6. Quality Verification, Scalability &amp; Real-World Economics</h2>
+  <ul>
+    <li>
+      <strong>58 Automated Unit Tests (100% Pass Rate in &lt;0.04s):</strong> Ten test suites (<code>test_rag</code>, <code>test_engine</code>, <code>test_draft</code>, <code>test_guidance</code>, <code>test_followup</code>, <code>test_intake</code>, <code>test_evidence_meter</code>, <code>test_simulator</code>, <code>test_litigation_roi</code>, <code>test_dossier</code>) verify PII masking, vector retrieval, firewall interception, UT mapping, non-repeating follow-ups, leverage scoring, and dossier compiling.
+    </li>
+    <li>
+      <strong>6 Unedited Raw Output Runs:</strong> Pre-generated in <code>/raw_outputs</code> spanning Delhi, Chandigarh, Mumbai, Bengaluru, Hyderabad, and Kolkata, testing English, Hindi, Hinglish, arbitrary business loss deductions, and justified GST repair bills.
+    </li>
+    <li>
+      <strong>Frictionless Scalability &amp; Micro-RAG Economics:</strong> Pure in-memory vector storage eliminates external vector database infrastructure (no Pinecone, no pgvector latency, no Docker dependencies). At ~1,200 tokens per interaction using <code>gemini-3.5-flash-lite</code> and <code>text-embedding-004</code>, end-to-end triage costs less than <strong>$0.00015 USD (~&#8377;0.012 INR)</strong> per case. Processing 100,000 tenant disputes nationwide would cost only <strong>$15 USD (~&#8377;1,250 INR)</strong>, proving that universal legal empowerment in India is viable at near-zero marginal cost.
+    </li>
+  </ul>
+
+  <div class="footer-text">
+    <span>Kuku AI Generalist Assignment &bull; Problem 2: Build an AI Lawyer</span>
+    <span>Page 2 of 2</span>
+  </div>
+</div>
+
+</body>
+</html>
