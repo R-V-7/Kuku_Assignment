@@ -272,6 +272,7 @@ def run_test_cases() -> None:
         )
 
         # Layer 4: Formal Legal Correspondence (Conditioned on Layer 4 Evaluation)
+        posture = engine.classify_dispute_posture(case, evaluation_text=rag_synthesis)
         letter = engine.draft_demand_letter(
             case=case,
             tenant_name=tc["tenant_name"],
@@ -279,11 +280,19 @@ def run_test_cases() -> None:
             property_address=tc["property_address"],
             retrieved_chunks=retrieved_chunks,
             evaluation_text=rag_synthesis,
+            posture=posture,
         )
+
+        # Product Innovations
+        evidence_meter = engine.calculate_evidence_meter(case)
+        pushbacks = engine.simulate_landlord_pushback(case, posture=posture)
+        litigation_roi = engine.calculate_litigation_roi(case, posture=posture)
+        court_dossier = engine.compile_court_dossier(case, posture=posture)
 
         output_data = {
             "test_case_id": tc["id"],
             "title": tc["title"],
+            "dispute_posture": posture,
             "layer_1_raw_input": tc["story"],
             "layer_1_redacted_input": redacted_story,
             "layer_1_pii_audit_log": pii_log,
@@ -304,10 +313,14 @@ def run_test_cases() -> None:
             "layer_4_bounded_rag_evaluation": rag_synthesis,
             "layer_5_citation_firewall_status": firewall_status,
             "layer_5_telemetry": telemetry,
-            "layer_4_generated_demand_notice": letter,
+            "layer_4_generated_correspondence": letter,
+            "product_innovation_evidence_strength_meter": evidence_meter,
+            "product_innovation_pushback_simulator": pushbacks,
+            "product_innovation_litigation_roi": litigation_roi,
+            "product_innovation_court_dossier": court_dossier,
         }
 
-        # Write case output file
+        # Write case output files
         json_file = OUTPUT_DIR / f"{tc['id']}.json"
         with open(json_file, "w", encoding="utf-8") as f:
             json.dump(output_data, f, indent=2, ensure_ascii=False)
@@ -316,19 +329,27 @@ def run_test_cases() -> None:
         with open(letter_file, "w", encoding="utf-8") as f:
             f.write(letter)
 
+        dossier_file = OUTPUT_DIR / f"{tc['id']}_court_dossier.md"
+        with open(dossier_file, "w", encoding="utf-8") as f:
+            f.write(court_dossier)
+
         summary_records.append(
             {
                 "case_id": tc["id"],
                 "city": case.city,
                 "state": case.state,
+                "posture": posture,
                 "deduction_reason": case.deduction_reason,
+                "evidence_strength_score": evidence_meter["score"],
+                "evidence_tier": evidence_meter["tier"],
+                "recommended_forum": litigation_roi["recommended_forum"],
                 "pii_redacted_count": len(pii_log),
                 "retrieved_sections": [c["section"] for c in retrieved_chunks],
                 "firewall_status": firewall_status,
                 "outstanding_balance": (case.deposit_amount_inr or 0) - (case.amount_returned_inr or 0),
             }
         )
-        print(f"  ✓ Output written to {json_file.name} & {letter_file.name} (Firewall: {firewall_status})")
+        print(f"  ✓ Output written to {json_file.name}, {letter_file.name}, & {dossier_file.name} (Firewall: {firewall_status})")
 
     # Generate master index
     index_file = OUTPUT_DIR / "RAW_OUTPUTS_INDEX.json"

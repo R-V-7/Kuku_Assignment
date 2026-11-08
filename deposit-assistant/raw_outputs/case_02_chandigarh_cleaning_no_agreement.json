@@ -1,6 +1,7 @@
 {
   "test_case_id": "case_02_chandigarh_cleaning_no_agreement",
   "title": "Chandigarh - Oral Lease with Withholding for AC Servicing & Cleaning",
+  "dispute_posture": "unjustified",
   "layer_1_raw_input": "I vacated my rented studio in Sector 35, Chandigarh on 28 October 2025. I gave Rs 25,000 deposit in cash. There was no written agreement signed, but I have Google Pay receipts for all rent transfers. The owner Mrs. Preeti Kaur returned 15000 but deducted 10000 saying flat needed deep cleaning and AC servicing. She did not provide any vendor bill or bill copy.",
   "layer_1_redacted_input": "I vacated my rented studio in Sector 35, Chandigarh on 28 October 2025. I gave Rs 25,000 deposit in cash. There was no written agreement signed, but I have Google Pay receipts for all rent transfers. The owner Mrs. Preeti Kaur returned 15000 but deducted 10000 saying flat needed deep cleaning and AC servicing. She did not provide any vendor bill or bill copy.",
   "layer_1_pii_audit_log": [],
@@ -59,5 +60,118 @@
       "MTA_SEC_15"
     ]
   },
-  "layer_4_generated_demand_notice": "FORMAL NOTICE FOR REFUND OF SECURITY DEPOSIT\n\nDate: 08 November 2026\n\nTo,\nMrs. Preeti Kaur\n(Landlord / Property Owner)\nProperty: House No. 1124, Sector 35-C, Chandigarh 160035\n\nFrom,\nAman Deep Singh\n(Former Tenant)\nContact: [Tenant Phone / Email]\n\nSubject: Formal Demand for Immediate Refund of Outstanding Security Deposit of ₹10,000\n\nDear Mrs. Preeti Kaur,\n\nI am issuing this formal demand notice regarding the residential premises situated at:\nHouse No. 1124, Sector 35-C, Chandigarh 160035.\n\n1. TENANCY PARTICULARS:\nI was residing as a tenant at the above-mentioned premises and peacefully handed over vacant possession upon moving out on 28 October 2025. The tenancy was established under an oral tenancy agreement with mutual terms.\n\n2. SECURITY DEPOSIT ACCOUNTING:\nThe payment of the security deposit of ₹25,000 was made upon commencement and is evidenced by verified transaction records / receipts.\nTo date, you have returned ₹15,000, leaving an unpaid deposit balance of ₹10,000.\n\n3. UNJUSTIFIED WITHHOLDING / DEDUCTIONS:\nYou have purportedly withheld/deducted ₹10,000 citing 'deep cleaning and AC servicing'. Please take note that under applicable law, specifically Section 11 of the Model Tenancy Act, 2021 (Security deposit limit and mandatory refund timeline); Section 15 of the Model Tenancy Act, 2021 (Division of maintenance responsibilities and routine wear and tear), a security deposit is held in trust solely to secure against tenant breach or damage beyond reasonable wear and tear. Arbitrary deductions without providing itemized repair bills, GST invoices, and prior joint inspection records are legally impermissible and constitute unjust retention of funds.\n\n4. LEGAL POSITION:\nUnder applicable Indian statutes, specifically Section 11 of the Model Tenancy Act, 2021 (Security deposit limit and mandatory refund timeline); Section 15 of the Model Tenancy Act, 2021 (Division of maintenance responsibilities and routine wear and tear), a landlord is legally required to return the security deposit promptly upon vacant handover, subject only to demonstrable, itemized actual loss beyond reasonable wear and tear. Unilateral deductions without documentary proof and verified invoices amount to breach of trust and unlawful retention of tenant funds.\n\n5. FORMAL DEMAND:\nYou are hereby called upon to refund the outstanding sum of ₹10,000 within 15 (fifteen) days from the receipt of this notice, payable to the following bank account / UPI ID:\nPayment Details: [Your Bank Name, Account Number, IFSC Code or UPI ID]\n\nIn the event of failure to refund the said sum within 15 days, I shall be constrained to initiate formal legal remedies before the competent Rent Authority, Civil Court, Consumer Disputes Redressal Commission, or approach the District Legal Services Authority (DLSA) / Lok Adalat for recovery, holding you liable for all legal expenses, damages, and statutory interest.\n\nSincerely,\n\nAman Deep Singh\n(Former Tenant)\n"
+  "layer_4_generated_correspondence": "FORMAL NOTICE FOR REFUND OF SECURITY DEPOSIT\n\nDate: 08 November 2026\n\nTo,\nMrs. Preeti Kaur\n(Landlord / Property Owner)\nProperty: House No. 1124, Sector 35-C, Chandigarh 160035\n\nFrom,\nAman Deep Singh\n(Former Tenant)\nContact: [Tenant Phone / Email]\n\nSubject: Formal Demand for Immediate Refund of Outstanding Security Deposit of ₹10,000\n\nDear Mrs. Preeti Kaur,\n\nI am issuing this formal demand notice regarding the residential premises situated at:\nHouse No. 1124, Sector 35-C, Chandigarh 160035.\n\n1. TENANCY PARTICULARS:\nI was residing as a tenant at the above-mentioned premises and peacefully handed over vacant possession upon moving out on 28 October 2025. The tenancy was established under an oral tenancy agreement with mutual terms.\n\n2. SECURITY DEPOSIT ACCOUNTING:\nThe payment of the security deposit of ₹25,000 was made upon commencement and is evidenced by verified transaction records / receipts.\nTo date, you have returned ₹15,000, leaving an unpaid deposit balance of ₹10,000.\n\n3. UNJUSTIFIED WITHHOLDING / DEDUCTIONS:\nYou have purportedly withheld/deducted ₹10,000 citing 'deep cleaning and AC servicing'. Please take note that under applicable law, specifically Section 11 of the Model Tenancy Act, 2021 (Security deposit limit and mandatory refund timeline); Section 15 of the Model Tenancy Act, 2021 (Division of maintenance responsibilities and routine wear and tear), a security deposit is held in trust solely to secure against tenant breach or damage beyond reasonable wear and tear. Arbitrary deductions without providing itemized repair bills, GST invoices, and prior joint inspection records are legally impermissible and constitute unjust retention of funds.\n\n4. LEGAL POSITION:\nUnder applicable Indian statutes, specifically Section 11 of the Model Tenancy Act, 2021 (Security deposit limit and mandatory refund timeline); Section 15 of the Model Tenancy Act, 2021 (Division of maintenance responsibilities and routine wear and tear), a landlord is legally required to return the security deposit promptly upon vacant handover, subject only to demonstrable, itemized actual loss beyond reasonable wear and tear. Unilateral deductions without documentary proof and verified invoices amount to breach of trust and unlawful retention of tenant funds.\n\n5. FORMAL DEMAND:\nYou are hereby called upon to refund the outstanding sum of ₹10,000 within 15 (fifteen) days from the receipt of this notice, payable to the following bank account / UPI ID:\nPayment Details: [Your Bank Name, Account Number, IFSC Code or UPI ID]\n\nIn the event of failure to refund the said sum within 15 days, I shall be constrained to initiate formal legal remedies before the competent Rent Authority, Civil Court, Consumer Disputes Redressal Commission, or approach the District Legal Services Authority (DLSA) / Lok Adalat for recovery, holding you liable for all legal expenses, damages, and statutory interest.\n\nSincerely,\n\nAman Deep Singh\n(Former Tenant)\n",
+  "product_innovation_evidence_strength_meter": {
+    "score": 80,
+    "tier": "Strong Legal Position",
+    "color": "green",
+    "summary": "You possess strong documentary evidence. The statutory burden of proof rests heavily on the landlord.",
+    "breakdown": [
+      {
+        "factor": "Verified Deposit Payment Trail",
+        "delta": "+25%",
+        "status": "POSITIVE",
+        "statute": "BSA 2023 §61",
+        "description": "Bank transfer / UPI records serve as admissible electronic evidence proving deposit custody."
+      },
+      {
+        "factor": "Oral Lease Agreement",
+        "delta": "-10%",
+        "status": "NEGATIVE",
+        "statute": "MTA 2021 §4",
+        "description": "Absence of a written lease requires proving tenancy terms through rent receipts and conduct."
+      },
+      {
+        "factor": "Established Move-Out Timeline",
+        "delta": "+10%",
+        "status": "POSITIVE",
+        "statute": "TPA 1882 §108(q)",
+        "description": "Documented move-out date establishes the statutory 30-day deadline for deposit return."
+      },
+      {
+        "factor": "Landlord Lacks Itemized Receipts",
+        "delta": "+15%",
+        "status": "POSITIVE",
+        "statute": "MTA 2021 §11 / ICA §73",
+        "description": "Unilateral deduction without third-party invoices constitutes arbitrary retention under Indian law."
+      }
+    ],
+    "actionable_tips": [
+      "Gather rent receipts, society entry logs, or utility payments in your name to prove tenancy duration."
+    ]
+  },
+  "product_innovation_pushback_simulator": [
+    {
+      "title": "Tactic 1: Court Delay / Litigation Threat (\"Go to court, it will take 5 years\")",
+      "landlord_message": "\"Do whatever you want. Send any notice you like. Civil court cases in India take 5 to 10 years. You will spend more money on your lawyer's fees than the ₹10,000 you are asking for.\"",
+      "legal_position": "Tenancy deposit disputes do not require protracted civil litigation. The Model Tenancy framework mandates summary resolution by the Rent Authority within 60 days. Furthermore, pre-litigation conciliation through the District Legal Services Authority (DLSA) / Lok Adalat is free of court fees and produces an enforceable civil decree.",
+      "statutory_hook": "Section 11 Model Tenancy Act, 2021 & Legal Services Authorities Act, 1987",
+      "whatsapp_rebuttal": "\"Dear Landlord, rental deposit recovery does not require lengthy civil suits. Under the Model Tenancy framework, the Rent Authority resolves deposit withholding summarily within 60 days. Furthermore, I can initiate free pre-litigation conciliation via the District Legal Services Authority (DLSA) / Lok Adalat at zero court fees. Please release ₹10,000 within the 15-day notice window to avoid formal registration of this dispute.\""
+    },
+    {
+      "title": "Tactic 2: Notice Period Forfeiture (\"You didn't give 2 months notice\")",
+      "landlord_message": "\"You vacated suddenly without giving a full 2-month advance written notice. Your deposit is therefore forfeited as rent in lieu of notice.\"",
+      "legal_position": "Under Section 106 of the Transfer of Property Act, 1882, the statutory notice period for residential tenancies is 15 days. Moreover, under Section 74 of the Indian Contract Act, 1872, automatic forfeiture of a security deposit constitutes an impermissible penalty. A landlord is legally required to mitigate losses by re-letting and can only claim actual proven vacancy loss.",
+      "statutory_hook": "Section 74 Indian Contract Act, 1872 & Section 106 Transfer of Property Act, 1882",
+      "whatsapp_rebuttal": "\"Dear Landlord, under Section 74 of the Indian Contract Act, 1872, automatic forfeiture of a security deposit is legally void as an arbitrary penalty. The statutory residential notice under Section 106 Transfer of Property Act is 15 days, and keys were accepted upon inspection without objection. As you have suffered no proven unlet vacancy loss, withholding ₹10,000 is legally unviable. Please process the refund.\""
+    },
+    {
+      "title": "Tactic 3: Routine Turnover Cleaning (\"Flat was not left in clean condition\")",
+      "landlord_message": "\"The flat was not left in pristine clean condition. I had to hire professional deep cleaners to prepare it for the next tenant. That cost me ₹10,000, so I am retaining it from your deposit.\"",
+      "legal_position": "Section 11 of the Model Tenancy Act, 2021 mandates that any deduction must be substantiated by actual third-party tax invoices. Moreover, ordinary turnover cleaning between tenants is standard owner maintenance. Deductions are only permissible for unusual, extreme unhygienic conditions supported by registered vendor vouchers (e.g. Urban Company GST receipts).",
+      "statutory_hook": "Section 11 Model Tenancy Act, 2021 & Section 73 Indian Contract Act, 1872",
+      "whatsapp_rebuttal": "\"Dear Landlord, under Section 11 of the Model Tenancy Act and Section 73 ICA, routine turnover cleaning is the property owner's maintenance cost, not tenant damage. Unilateral deductions without official registered cleaning agency GST receipts and move-in/out comparison photos are legally invalid. Please provide the genuine vendor GST invoices or release the full balance of ₹10,000.\""
+    }
+  ],
+  "product_innovation_litigation_roi": {
+    "disputed_amount_inr": 10000,
+    "statutory_interest_inr": 400,
+    "months_elapsed": 6,
+    "statutory_rate_pct": 8.0,
+    "total_claimable_inr": 10400,
+    "roi_tier": "ZERO_COST_ESCALATION",
+    "verdict": "Zero-Cost Informal Conciliation (High Net ROI)",
+    "recommended_forum": "NALSA / DLSA Pre-Litigation Lok Adalat",
+    "forum_authority": "District Legal Services Authority (DLSA)",
+    "court_fee_display": "₹0 (Completely Free)",
+    "lawyer_fee_advice": "DO NOT hire a private advocate. Private lawyer fees (₹15,000+) exceed your claim value.",
+    "estimated_duration": "30 – 60 Days",
+    "expected_net_recovery": "₹10,000 (100% Net Recovery)",
+    "summary": "For a dispute of ₹10,000, hiring a private lawyer produces a negative financial ROI. Under the Legal Services Authorities Act, 1987, DLSA Pre-Litigation Lok Adalat is free of court fees, requires no lawyers, and yields a binding settlement enforceable as a civil court decree.",
+    "forum_matrix": [
+      {
+        "forum": "1. WhatsApp / Registered Post Demand Notice",
+        "cost": "₹0 – ₹100",
+        "duration": "15 Days",
+        "court_fee": "₹0",
+        "suitability": "Mandatory first step before any formal filing.",
+        "status": "ACTIVE_STEP"
+      },
+      {
+        "forum": "2. DLSA Pre-Litigation Lok Adalat",
+        "cost": "₹0",
+        "duration": "1 – 2 Months",
+        "court_fee": "₹0 (Legal Services Authorities Act §21)",
+        "suitability": "Best for ₹0 legal spend with legally binding settlement decree.",
+        "status": "RECOMMENDED"
+      },
+      {
+        "forum": "3. e-Daakhil Consumer Commission",
+        "cost": "₹100 (Affidavit)",
+        "duration": "3 – 6 Months",
+        "court_fee": "₹0 (Exempt under ₹5 Lakh)",
+        "suitability": "Best for self-representation against stubborn landlords.",
+        "status": "VIABLE"
+      },
+      {
+        "forum": "4. Rent Authority / Civil Suit",
+        "cost": "₹2,000 – ₹10,000",
+        "duration": "4 – 12 Months",
+        "court_fee": "State Ad Valorem Fee",
+        "suitability": "Best for high-value deposits (>₹60,000) with substantial damages.",
+        "status": "OPTIONAL"
+      }
+    ]
+  },
+  "product_innovation_court_dossier": "# PRE-LITIGATION CASE DOSSIER & COMPLAINT PETITION\n\n**BEFORE THE HON'BLE DISTRICT CONSUMER DISPUTES REDRESSAL COMMISSION /**  \n**BEFORE THE SECRETARY, DISTRICT LEGAL SERVICES AUTHORITY (DLSA)**  \n**AT CHANDIGARH, CHANDIGARH**\n\n---\n\n### IN THE MATTER OF:\n**TENANT / COMPLAINANT**  \n*(Details as per Lease Agreement)*  \n`... COMPLAINANT`\n\n**VERSUS**\n\n**LANDLORD / OPPOSITE PARTY**  \n*(Property Owner / Lessor)*  \n`... OPPOSITE PARTY`\n\n---\n\n## 1. SYNOPSIS & LIST OF DATES AND EVENTS\n\n| Date | Event / Fact | Statutory Nexus |\n| :--- | :--- | :--- |\n| **Tenancy Inception** | Complainant entered into residential tenancy in Chandigarh, Chandigarh and transferred ₹25,000 as refundable security deposit. | Section 10, Indian Contract Act, 1872 & Section 61, Bharatiya Sakshya Adhiniyam, 2023 |\n| **28 October 2025** | Complainant lawfully vacated premises and peacefully surrendered keys following joint handover. | Section 108(q), Transfer of Property Act, 1882 |\n| **+30 Days Post-Exit** | Statutory 30-day refund window elapsed. Opposite Party failed to return full deposit or tender itemized GST invoices. | Section 11, Model Tenancy Act, 2021 |\n| **Dispute Date** | Opposite Party unilaterally withheld ₹10,000 under the pretext of 'deep cleaning and AC servicing', without supplying third-party contractor tax invoices. | Section 73 & 74, Indian Contract Act, 1872 |\n| **Notice Served** | Complainant served formal 15-day statutory demand notice requesting refund or production of genuine GST bills. | Consumer Protection Act, 2019 §2(11) |\n| **Present Date** | Opposite Party failed to comply. Present complaint/conciliation petition instituted for recovery of ₹10,400. | Section 21, Legal Services Authorities Act, 1987 |\n\n---\n\n## 2. STATUTORY GROUNDS & STATEMENT OF CLAIM\n\n1. **Unilateral Breach of Contract (Section 73, Indian Contract Act, 1872):**  \n   The security deposit was delivered in trust solely to guarantee tenancy covenants. A landlord cannot unilaterally deduct funds for 'deep cleaning and AC servicing' without proving actual, non-remote financial injury through certified receipts.\n\n2. **Violation of Statutory Notice and Billing Mandate (Section 11, Model Tenancy Act, 2021):**  \n   Section 11 strictly mandates that any deduction must be substantiated with itemized accounts and actual expenditure bills. In the absence of third-party contractor GST invoices, withholding constitutes an arbitrary penalty barred under Section 74 of the ICA.\n\n3. **Admissibility of Electronic Records (Section 61, Bharatiya Sakshya Adhiniyam, 2023):**  \n   The Complainant substantiates all financial transactions (deposit transfer of ₹25,000 and partial return of ₹15,000) through bank account statements and UPI transaction logs, forming admissible primary electronic evidence.\n\n4. **Deficiency of Service (Section 2(11), Consumer Protection Act, 2019):**  \n   The arbitrary retention of tenancy deposits by a landlord constitutes an unfair practice and deficiency in service, entitling the consumer to restitution and compensation.\n\n---\n\n## 3. PRAYER & RELIEF SOUGHT\n\nWHEREFORE, the Complainant respectfully prays that this Hon'ble Authority / Commission may be pleased to:\n\n* **A. Direct the Opposite Party** to immediately refund the unlawfully withheld principal sum of **₹10,000** to the Complainant.\n* **B. Award Statutory Interest** of **₹400** (calculated @ 8% p.a. from expiry of 30 days post move-out till actual realization) under the Interest Act, 1978.\n* **C. Grant Reasonable Litigation Costs & Nominal Compensation** of ₹5,000/- for mental harassment and unjust deprivation of hard-earned funds.\n* **D. Pass any other order(s)** deemed just and equitable in the interest of justice.\n\n---\n\n## 4. INDEX OF ANNEXURES (FILING CHECKLIST)\n\n| Annexure No. | Document Description | Evidentiary Purpose |\n| :---: | :--- | :--- |\n| **Annexure C-1** | Copy of Signed Lease / Tenancy Agreement (or statement of oral tenancy terms). | Proves contractual relationship and agreed refund covenants. |\n| **Annexure C-2** | Certified Bank Statement / UPI Transaction Log of deposit debit. | Primary electronic evidence under BSA 2023 §61 proving deposit remittance. |\n| **Annexure C-3** | Move-Out Inspection Record / WhatsApp Key Handover Confirmation. | Confirms peaceful surrender without contemporaneous objection. |\n| **Annexure C-4** | Copy of 15-Day Statutory Legal Demand Notice served on Landlord. | Proves pre-litigation notice requirement was satisfied. |\n| **Annexure C-5** | Proof of Service (India Post Registered AD Tracking / WhatsApp Delivery). | Establishes delivery and opposite party's default. |\n\n---\n\n### 5. VERIFICATION\nI, the Complainant above-named, do hereby verify and state that the contents of paragraphs 1 to 4 above are true and correct to my personal knowledge and belief derived from contractual records, and nothing material has been concealed therefrom.\n\nVerified at **Chandigarh** on this **08 November 2026**.\n\n*(Complainant / Deponent)*\n"
 }
