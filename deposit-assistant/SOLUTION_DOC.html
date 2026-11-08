@@ -290,9 +290,15 @@
   </p>
   <ul>
     <li><strong>1. Unjustified (0% Proven):</strong> Arbitrary withholding (e.g. business losses, normal wear painting). Routes to a <strong>15-Day Demand Notice</strong> for 100% refund with <em>strictly zero concession language</em>.</li>
-    <li><strong>2. Fully Justified (100% Proven):** Landlord provided verified contractor GST invoices and meter bills. Routes to a **Mutual Tenancy Discharge &amp; Settlement Record**; advises against wasteful litigation.</li>
+    <li><strong>2. Fully Justified (100% Proven):</strong> Landlord provided verified contractor GST invoices and meter bills. Routes to a <strong>Mutual Tenancy Discharge &amp; Settlement Record</strong>; advises against wasteful litigation.</li>
     <li><strong>3. Partially Justified (Mixed Evidence):</strong> Legitimate expenses are documented, but balance is arbitrary. Concedes <em>only the verified invoices</em> and demands the remaining unproven balance.</li>
   </ul>
+  <p>
+    <strong>Conversational &amp; Arithmetic Edge-Cases Solved in Testing:</strong><br>
+    <em>(a) Substring Arithmetic Bug:</em> Naive substring matching (<code>'0' in reply</code>) triggered on amounts containing zero (e.g. &#8377;15,000 or &#8377;40,000), resetting returned balances. Solved via regex boundary isolation (<code>\b(0|zero|nil|none)\b</code>) and auto-deriving <code>max(0, deposit - deduction)</code>.<br>
+    <em>(b) Follow-up Field Overwrites:</em> When users answered <em>"no agreement"</em> to follow-ups, earlier prompts misattributed the negative answer, overwriting <code>state</code> or <code>city</code> with <code>"no"</code>. Solved via strict question-routing state machine guards.<br>
+    <em>(c) Bangalore "False Hope" Score:</em> Our initial Evidence Meter gave a tenant 70% confidence simply because they had bank records and a signed lease, even though the landlord produced verified contractor GST invoices. We recalibrated the engine so that MTA &sect;11 compliance gates the score to <strong>15% (Unviable)</strong>, actively protecting tenants from wasted litigation costs.
+  </p>
 
   <h2>5. Honest Failure Modes &amp; When Someone Needs a Real Lawyer</h2>
   <p>An honest AI lawyer knows its exact boundaries and tells the user when human legal representation is mandatory:</p>
@@ -319,6 +325,11 @@
         <td><strong>Active Evictions &amp; Physical Intimidation</strong></td>
         <td>Disputes involving lockouts, utility cut-offs, or criminal threats cannot be solved via a 15-day demand notice.</td>
         <td>Detects scope mismatch; advises tenant to file a police complaint and consult a human advocate immediately for an interim civil injunction.</td>
+      </tr>
+      <tr>
+        <td><strong>NRI Landlords &amp; Co-Living Aggregators</strong></td>
+        <td>In tech hubs (Bengaluru/Gurugram), landlords frequently reside overseas or operate through informal subletting startups.</td>
+        <td>Physical Registered Post AD notices fail without domestic address; flags barrier and advises verified electronic notice (WhatsApp/email under BSA &sect;61).</td>
       </tr>
     </tbody>
   </table>

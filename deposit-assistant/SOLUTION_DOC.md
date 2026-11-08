@@ -52,14 +52,19 @@ To eliminate heavy infrastructure hurdles while guaranteeing zero hallucinations
   1. It parses output text for statutory citation patterns (`Section \d+`, `Article \d+`, `IPC`, `BNS`).
   2. It cross-references extracted citations against the whitelist of retrieved Layer 3 chunk IDs.
   3. Because `Section 405 IPC` was not in the whitelist, the firewall physically intercepted the unverified criminal charge, replaced it with verified civil remedies (**Section 73 Indian Contract Act**), and logged the interception in the Telemetry Dashboard.
-* **The "Blind Advocate" Failure:** Standard LLMs suffer from blind advocacy—conceding hallucinated bills when none were provided, or demanding 100% refunds when the landlord provided valid contractor GST invoices. We eliminated this by decoupling factual classification from drafting: our deterministic 3-state posture machine routes verified invoice cases to **Mutual Tenancy Discharge Records** and unproven retention cases to **Zero-Concession Demand Notices**.
+* **The "Blind Advocate" & "Concession Hallucination" Failure:** Standard LLMs suffer from blind advocacy—conceding hallucinated bills when none were provided, or demanding 100% refunds when the landlord provided valid contractor GST invoices. We eliminated this by decoupling factual classification from drafting: our deterministic 3-state posture machine routes verified invoice cases to **Mutual Tenancy Discharge Records** and unproven retention cases to **Zero-Concession Demand Notices**.
+* **Conversational Intake Failures Solved in Testing:**  
+  1. *Substring Arithmetic Bug:* Naive checks like `'0' in reply` triggered on amounts containing zero (e.g. ₹15,000 or ₹40,000), resetting returned balances. We solved this with boundary-isolated regex tokens (`\b(0|zero|nil|none)\b`) and auto-deriving `max(0, deposit - deduction)`.  
+  2. *Follow-Up Field Overwrites:* When tenants answered *"no agreement"* to follow-up questions, earlier iterations misattributed the negative answer, overwriting `state` or `city` with `"no"`. We built strict question-routing state machine guards that insulate geographic facts from document queries.  
+  3. *The Bangalore "False Hope" Score:* Our initial Evidence Meter gave a tenant 70% confidence simply because they had bank records and a signed lease, despite the landlord producing verified contractor GST invoices for admitted damage. We recalibrated the engine so that MTA §11 invoice compliance gates the score to **15% (Unviable)**, preventing financially ruinous litigation.
 
 ---
 
 ### 5. Honest Failure Modes & When Someone Needs a Real Lawyer
 1. **Counterfeit / Forged Landlord Invoices:** If a landlord produces fraudulent GST invoices or backdated repair slips, the assistant cannot conduct forensic handwriting or tax portal verification. The assistant explicitly flags this and instructs the tenant to file an affidavit before the District Consumer Commission.
-2. **Oral Agreements with Cash Payments:** When both `written_agreement == "no"` and `payment_proof == "no"`, documentary proof under BSA Section 61 is absent. The system informs the user that recovery relies on oral admissions and witness testimony, advising pre-litigation Lok Adalat mediation.
-3. **Active Evictions & Physical Threats:** When disputes involve lockouts, disconnection of utilities, or physical intimidation, demand notices are insufficient. The app instructs the tenant to seek immediate police assistance and consult an advocate for interim injunctions.
+2. **Cash Deposits & Oral Leases:** When both `written_agreement == "no"` and `payment_proof == "no"`, documentary proof under BSA Section 61 is absent. The system informs the user that civil claims require documentary custody proof; steers case to informal pre-litigation conciliation via DLSA Lok Adalat.
+3. **Active Evictions & Physical Threats:** When disputes involve lockouts, disconnection of utilities, or physical intimidation, demand notices are insufficient. The app instructs the tenant to seek immediate police assistance and consult an advocate for interim civil injunctions.
+4. **NRI Landlords & Informal Co-Living Aggregators:** In IT hubs (Bengaluru, Gurugram), properties are frequently owned by overseas NRIs or sub-leased through informal co-living startups. Standard Registered Post AD notice service fails without a domestic physical address. The system flags this jurisdiction hurdle and recommends serving notice via verified electronic channels (WhatsApp/email under BSA §61) alongside consumer forum e-filing.
 
 ---
 
