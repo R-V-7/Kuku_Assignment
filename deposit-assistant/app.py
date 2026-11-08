@@ -167,6 +167,37 @@ with st.sidebar:
         )
         st.rerun()
 
+    if st.button("Sample 5: Mumbai (Hinglish Intake)", use_container_width=True):
+        st.session_state.case = None
+        st.session_state.confirmed_case = None
+        st.session_state.conversation = []
+        st.session_state.answered_questions = []
+        st.session_state.retrieved_chunks = []
+        st.session_state.rag_synthesis = ""
+        st.session_state.telemetry = None
+        st.session_state.input_story = (
+            "Bhai maine Andheri West Mumbai me flat khali kiya 15 September 2025 ko. Deposit 80000 diya tha online transfer se. "
+            "Landlord ek rupya wapas nahi kar raha hai bol raha hai maintenance kharcha lag gaya par kitna aur kyu kuch bataya nahi. "
+            "Agreement bhi tha registered. Mujhe mera pura deposit chahiye."
+        )
+        st.rerun()
+
+    if st.button("Sample 6: Bengaluru (Painting Wear & Tear)", use_container_width=True):
+        st.session_state.case = None
+        st.session_state.confirmed_case = None
+        st.session_state.conversation = []
+        st.session_state.answered_questions = []
+        st.session_state.retrieved_chunks = []
+        st.session_state.rag_synthesis = ""
+        st.session_state.telemetry = None
+        st.session_state.input_story = (
+            "I lived in Koramangala Bengaluru for 3 years. Moved out on 1st November 2025. "
+            "Security deposit was Rs 1,00,000. Landlord returned 70,000 and deducted 30,000 for full house repainting. "
+            "We had a written lease agreement which did not mention mandatory painting deduction upon exit. "
+            "The walls only had normal wear and tear and no physical damage."
+        )
+        st.rerun()
+
     if st.button("🔄 Reset / Clear Session", use_container_width=True):
         st.session_state.case = None
         st.session_state.confirmed_case = None
