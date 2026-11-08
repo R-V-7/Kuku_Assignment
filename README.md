@@ -1,8 +1,13 @@
 # Kuku AI Generalist Assignment — Problem 2: Deposit Dispute Assistant
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Streamlit%20Cloud-red?logo=streamlit)](https://kukuassignment-83awbb7kp5dmr2vzfmafof.streamlit.app)
 [![Tests](https://img.shields.io/badge/Unit%20Tests-58%20Passed-brightgreen)](deposit-assistant/SOLUTION_DOC.md)
 [![Architecture](https://img.shields.io/badge/Architecture-5--Layer%20Micro--RAG-blue)](deposit-assistant/SOLUTION_DOC.md)
 [![Citation Firewall](https://img.shields.io/badge/Guardrails-AST%20Citation%20Firewall-orange)](deposit-assistant/SOLUTION_DOC.md)
+
+> 🚀 **Live Interactive Web Prototype:**  
+> **[kukuassignment-83awbb7kp5dmr2vzfmafof.streamlit.app](https://kukuassignment-83awbb7kp5dmr2vzfmafof.streamlit.app)**  
+> *(Click and test immediately on Streamlit Community Cloud with 6 one-click preset scenarios!)*
 
 An end-to-end, privacy-preserving, production-grade **Indian Residential Rental Security Deposit Triage & Formal Notice Engine** developed for the Kuku AI Generalist Assignment (Problem 2).
 

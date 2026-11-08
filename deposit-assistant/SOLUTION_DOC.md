@@ -2,8 +2,8 @@
 ## Deposit Dispute Assistant: A 5-Layer Micro-RAG Legal Assistant for Indian Tenants
 
 **Candidate:** Rudra Vohra | **Roll No:** 23113131 | **Branch:** Civil Engineering  
-**GitHub Repository:** [github.com/R-V-7/Kuku_Assignment](https://github.com/R-V-7/Kuku_Assignment) | **Problem Selected:** Problem 2 (Build an AI Lawyer)  
-**Deliverables:** Production Streamlit App, 58 Automated Unit Tests, 6 Raw Output Runs, 2-Page Solution Doc, Video Walkthrough  
+**Live Prototype:** [kukuassignment-83awbb7kp5dmr2vzfmafof.streamlit.app](https://kukuassignment-83awbb7kp5dmr2vzfmafof.streamlit.app) | **GitHub:** [github.com/R-V-7/Kuku_Assignment](https://github.com/R-V-7/Kuku_Assignment)  
+**Deliverables:** Live Deployed App, 58 Automated Unit Tests, 6 Raw Output Runs, 2-Page Solution Doc, Video Walkthrough  
 
 ---
 

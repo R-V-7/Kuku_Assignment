@@ -1,5 +1,11 @@
 # Deposit Dispute Assistant (Kuku AI Generalist Assignment)
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Streamlit%20Cloud-red?logo=streamlit)](https://kukuassignment-83awbb7kp5dmr2vzfmafof.streamlit.app)
+[![Tests](https://img.shields.io/badge/Unit%20Tests-58%20Passed-brightgreen)](SOLUTION_DOC.md)
+
+> 🚀 **Live Interactive Web Prototype:**  
+> **[kukuassignment-83awbb7kp5dmr2vzfmafof.streamlit.app](https://kukuassignment-83awbb7kp5dmr2vzfmafof.streamlit.app)**
+
 An enterprise-grade **5-Layer Micro-RAG Legal Assistant** designed for ordinary tenants in India facing security deposit withholding. Built with Streamlit, Pydantic, and the official `google-genai` SDK (`gemini-3.5-flash-lite` & `text-embedding-004`).
 
 Designed specifically to be **frictionless for evaluators**: runs instantly via `pip install -r requirements.txt` and `streamlit run app.py` without requiring external databases (no Docker, no PostgreSQL, no pgvector).
